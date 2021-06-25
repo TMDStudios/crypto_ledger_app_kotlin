@@ -1,4 +1,4 @@
-package com.tmdstudios.cryptoledgerkotlin
+package com.tmdstudios.cryptoledgerkotlin.tools
 
 data class LedgerCoin(
     val _purchase_price: String,

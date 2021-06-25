@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tmdstudios.cryptoledgerkotlin.databinding.ActivityHomeBinding
+import com.tmdstudios.cryptoledgerkotlin.tools.LedgerCoinAdapter
+import com.tmdstudios.cryptoledgerkotlin.tools.RetrofitInstance
 import retrofit2.HttpException
 import java.io.IOException
 

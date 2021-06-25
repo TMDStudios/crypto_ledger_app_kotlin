@@ -1,4 +1,4 @@
-package com.tmdstudios.cryptoledgerkotlin
+package com.tmdstudios.cryptoledgerkotlin.tools
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
