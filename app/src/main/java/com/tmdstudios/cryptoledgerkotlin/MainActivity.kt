@@ -7,6 +7,7 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     lateinit var nextBtn: Button
+    lateinit var pricesBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,10 +15,18 @@ class MainActivity : AppCompatActivity() {
 
         nextBtn = findViewById(R.id.btNext)
         nextBtn.setOnClickListener { login() }
+
+        pricesBtn = findViewById(R.id.btPrices)
+        pricesBtn.setOnClickListener { prices() }
     }
 
     private fun login(){
         val intent = Intent(this,Home::class.java)
+        startActivity(intent)
+    }
+
+    private fun prices(){
+        val intent = Intent(this,ViewPrices::class.java)
         startActivity(intent)
     }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tmdstudios.cryptoledgerkotlin.databinding.LedgerCoinBinding
 
 class LedgerCoinAdapter: RecyclerView.Adapter<LedgerCoinAdapter.LedgerCoinViewHolder>() {
+
     inner class LedgerCoinViewHolder(val binding: LedgerCoinBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<LedgerCoin>() {
