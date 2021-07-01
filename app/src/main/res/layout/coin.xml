@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@color/baby_blue"
+    app:cardCornerRadius="12dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true"
@@ -37,17 +38,83 @@
             android:drawablePadding="2dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/tvCoinName"
+            android:textColor="@color/light_charcoal"
             android:text="Coin Price" />
 
+        <LinearLayout
+            android:id="@+id/llPriceChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@id/tvCoinPrice">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                >
+                <TextView
+                    android:id="@+id/tvCoinTrend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price Trend:" />
+                <TextView
+                    android:id="@+id/tvPrice1h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price  1h" />
+                <TextView
+                    android:id="@+id/tvPrice24h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price 24h" />
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/tvCoinTrend"
+            android:id="@+id/tvCoinInCrypto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:drawablePadding="2dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvCoinPrice"
-            android:text="Coin Trend" />
+            android:layout_below="@id/llPriceChange"
+            android:textStyle="bold"
+            android:textColor="@color/light_charcoal"
+            android:text="Price in BTC/ETH" />
+
+        <LinearLayout
+            android:id="@+id/llCryptoPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCoinInCrypto"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="2dp">
+            <TextView
+                android:id="@+id/tvPriceBTC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/light_charcoal"
+                android:text="Price BTC" />
+            <TextView
+                android:id="@+id/tvPriceETH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_weight="1"
+                android:textColor="@color/light_charcoal"
+                android:text="Price ETH" />
+        </LinearLayout>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
