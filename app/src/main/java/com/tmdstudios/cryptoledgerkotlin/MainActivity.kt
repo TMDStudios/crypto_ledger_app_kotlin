@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         pricesBtn = findViewById(R.id.btPrices)
         pricesBtn.setOnClickListener { prices() }
+
+        title = "Crypto Ledger Login"
     }
 
     private fun login(){

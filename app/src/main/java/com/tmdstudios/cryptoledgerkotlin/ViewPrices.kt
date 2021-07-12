@@ -46,6 +46,8 @@ class ViewPrices : AppCompatActivity() {
             }
             binding.coinProgressBar.isVisible = false
         }
+
+        title = "All Prices"
     }
 
     private fun setupRecyclerView() = binding.rvCoins.apply {
