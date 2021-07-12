@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledgerkotlin.tools
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tmdstudios.cryptoledgerkotlin.databinding.CoinBinding
 
-class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
+class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
     inner class CoinViewHolder(val binding: CoinBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -60,6 +61,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
             }
             tvPriceBTC.text = coin.price_btc
             tvPriceETH.text = coin.price_eth
+            cvCoin.setOnClickListener { CustomAlertDialog(activity, "Alert Title", "Some Text") }
         }
     }
 

@@ -49,7 +49,7 @@ class ViewPrices : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() = binding.rvCoins.apply {
-        coinAdapter = CoinAdapter()
+        coinAdapter = CoinAdapter(this@ViewPrices)
         adapter = coinAdapter
         layoutManager = LinearLayoutManager(this@ViewPrices)
     }

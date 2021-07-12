@@ -49,7 +49,7 @@ class Home : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() = binding.rvLedgerCoins.apply {
-        ledgerCoinAdapter = LedgerCoinAdapter()
+        ledgerCoinAdapter = LedgerCoinAdapter(this@Home)
         adapter = ledgerCoinAdapter
         layoutManager = LinearLayoutManager(this@Home)
     }
