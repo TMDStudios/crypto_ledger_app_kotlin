@@ -40,7 +40,7 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
             tvLedgerCoinName.text = ledgerCoin.name
             tvLedgerCoinPrice.text = ledgerCoin.current_price
             tvLedgerCoinTrend.text = ledgerCoin.price_difference.toString()
-            cvLedgerCoin.setOnClickListener { CustomAlertDialog(activity, "Alert Title", "Some Text") }
+            cvLedgerCoin.setOnClickListener { CustomAlertDialog(activity, "Alert Title", "Some Text", 0) }
         }
     }
 

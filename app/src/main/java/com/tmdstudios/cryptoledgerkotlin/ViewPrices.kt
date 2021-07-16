@@ -1,5 +1,6 @@
 package com.tmdstudios.cryptoledgerkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -54,5 +55,10 @@ class ViewPrices : AppCompatActivity() {
         coinAdapter = CoinAdapter(this@ViewPrices)
         adapter = coinAdapter
         layoutManager = LinearLayoutManager(this@ViewPrices)
+    }
+
+    fun goHome(){
+        val intent = Intent(this,Home::class.java)
+        startActivity(intent)
     }
 }

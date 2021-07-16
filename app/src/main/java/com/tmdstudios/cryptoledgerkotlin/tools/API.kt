@@ -1,7 +1,9 @@
 package com.tmdstudios.cryptoledgerkotlin.tools
 
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface API {
@@ -11,6 +13,6 @@ interface API {
     @GET("/api/get-prices")
     suspend fun getPrices(): Response<List<Coin>>
 
-//    @POST
-//    fun buyCoin(@Body coin: Coin): Response<BuyCoin>
+    @POST("/api/buy-coin-api/{APIKey}")
+    suspend fun buyCoin(@Path("APIKey") APIKey: String, @Body coin: BuyCoin): Response<BuyCoin>
 }

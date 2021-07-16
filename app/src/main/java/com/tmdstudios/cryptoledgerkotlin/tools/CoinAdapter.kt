@@ -41,7 +41,8 @@ class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAda
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         holder.binding.apply {
             val coin = coins[position]
-            tvCoinName.text = coin.name
+            val coinName = coin.name + " (" + coin.symbol + ")"
+            tvCoinName.text = coinName
             tvCoinPrice.text = coin.price
             var decimalPointIndex = coin.price_1h.toString().indexOf(".") + 2
             val price1h = "1h: " + coin.price_1h.toString().substring(0, decimalPointIndex) + "%"
@@ -61,7 +62,7 @@ class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAda
             }
             tvPriceBTC.text = coin.price_btc
             tvPriceETH.text = coin.price_eth
-            cvCoin.setOnClickListener { CustomAlertDialog(activity, "Alert Title", "Some Text") }
+            cvCoin.setOnClickListener { CustomAlertDialog(activity, coinName, "Some Text", 1) }
         }
     }
 
