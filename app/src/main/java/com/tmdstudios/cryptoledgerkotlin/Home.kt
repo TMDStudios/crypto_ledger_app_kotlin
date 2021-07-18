@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.tmdstudios.cryptoledgerkotlin.databinding.ActivityHomeBinding
+import com.tmdstudios.cryptoledgerkotlin.tools.CustomAlertDialog
 import com.tmdstudios.cryptoledgerkotlin.tools.LedgerCoinAdapter
 import com.tmdstudios.cryptoledgerkotlin.tools.RetrofitInstance
 import retrofit2.HttpException
@@ -39,7 +40,7 @@ class Home : AppCompatActivity() {
                 return@launchWhenCreated
             }
             if(response.isSuccessful && response.body() != null){
-                ledgerCoinAdapter.ledgerCoins = response.body()!!.filter { coin -> !coin.merged }
+                ledgerCoinAdapter.ledgerCoins = response.body()!!.filter { coin -> !coin.merged && !coin.sold }
             }else{
                 Log.e("Home", "Response unsuccessful", )
                 Snackbar.make(binding.root, "Response unsuccessful", Snackbar.LENGTH_LONG).show()

@@ -45,8 +45,10 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
                 CustomAlertDialog(
                         activity,
                         ledgerCoin.name,
-                        "Add info here",
-                        2)
+                        ledgerCoin.id.toString(),
+                        ledgerCoin.total_amount,
+                        2
+                )
             }
         }
     }

@@ -62,7 +62,7 @@ class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAda
             }
             tvPriceBTC.text = coin.price_btc
             tvPriceETH.text = coin.price_eth
-            cvCoin.setOnClickListener { CustomAlertDialog(activity, coinName, "Some Text", 1) }
+            cvCoin.setOnClickListener { CustomAlertDialog(activity, coinName, "", "", 1) }
         }
     }
 

@@ -15,4 +15,7 @@ interface API {
 
     @POST("/api/buy-coin-api/{APIKey}")
     suspend fun buyCoin(@Path("APIKey") APIKey: String, @Body coin: BuyCoin): Response<BuyCoin>
+
+    @POST("/api/sell-coin-api/{APIKey}")
+    suspend fun sellCoin(@Path("APIKey") APIKey: String, @Body coin: SellCoin): Response<SellCoin>
 }
