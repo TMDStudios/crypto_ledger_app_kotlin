@@ -33,7 +33,7 @@ class CustomAlertDialog(val activity: Activity, title: String, message: String, 
         customPrice.hint = "Custom Price (optional)"
         customPrice.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         layout.addView(amount)
-        layout.addView(customPrice)
+        if(alertType==1){layout.addView(customPrice)}
 
 
     // set message of alert dialog
@@ -67,7 +67,11 @@ class CustomAlertDialog(val activity: Activity, title: String, message: String, 
         // create dialog box
         val alert = dialogBuilder.create()
         // set title for alert dialog box
-        alert.setTitle("Buy $title")
+        when(alertType){
+            1 -> alert.setTitle("Buy $title")
+            2 -> alert.setTitle("Sell $title")
+            else -> alert.setTitle(title)
+        }
         // show alert dialog
         alert.setView(layout)
         alert.show()

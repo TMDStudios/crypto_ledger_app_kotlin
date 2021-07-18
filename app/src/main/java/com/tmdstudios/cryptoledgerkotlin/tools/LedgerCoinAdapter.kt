@@ -14,6 +14,7 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
 
     private val diffCallback = object : DiffUtil.ItemCallback<LedgerCoin>() {
         override fun areItemsTheSame(oldItem: LedgerCoin, newItem: LedgerCoin): Boolean {
+//            if(oldItem.sold || oldItem.merged){return true}
             return oldItem.id == newItem.id
         }
         override fun areContentsTheSame(oldItem: LedgerCoin, newItem: LedgerCoin): Boolean {
@@ -35,12 +36,18 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
     }
 
     override fun onBindViewHolder(holder: LedgerCoinViewHolder, position: Int) {
+        val ledgerCoin = ledgerCoins[position]
         holder.binding.apply {
-            val ledgerCoin = ledgerCoins[position]
             tvLedgerCoinName.text = ledgerCoin.name
             tvLedgerCoinPrice.text = ledgerCoin.current_price
-            tvLedgerCoinTrend.text = ledgerCoin.price_difference.toString()
-            cvLedgerCoin.setOnClickListener { CustomAlertDialog(activity, "Alert Title", "Some Text", 0) }
+            tvLedgerCoinAmount.text = ledgerCoin.total_amount
+            cvLedgerCoin.setOnClickListener {
+                CustomAlertDialog(
+                        activity,
+                        ledgerCoin.name,
+                        "Add info here",
+                        2)
+            }
         }
     }
 

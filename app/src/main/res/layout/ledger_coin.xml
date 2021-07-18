@@ -41,14 +41,14 @@
             android:text="Coin Price" />
 
         <TextView
-            android:id="@+id/tvLedgerCoinTrend"
+            android:id="@+id/tvLedgerCoinAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:drawablePadding="2dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/tvLedgerCoinPrice"
-            android:text="Coin Trend" />
+            android:text="Coin Amount" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

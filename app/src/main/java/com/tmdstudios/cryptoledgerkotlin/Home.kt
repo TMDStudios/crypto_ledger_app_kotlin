@@ -39,7 +39,7 @@ class Home : AppCompatActivity() {
                 return@launchWhenCreated
             }
             if(response.isSuccessful && response.body() != null){
-                ledgerCoinAdapter.ledgerCoins = response.body()!!
+                ledgerCoinAdapter.ledgerCoins = response.body()!!.filter { coin -> !coin.merged }
             }else{
                 Log.e("Home", "Response unsuccessful", )
                 Snackbar.make(binding.root, "Response unsuccessful", Snackbar.LENGTH_LONG).show()
