@@ -26,6 +26,7 @@ class CustomAlertDialog(
         private val alertType: Int) {
 //    Alert Types: 1 = buy coin
     init {
+        var confirmText = "OK"
         // build alert dialog
         val dialogBuilder = AlertDialog.Builder(activity)
 
@@ -41,20 +42,22 @@ class CustomAlertDialog(
         amount.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         customPrice.hint = "Custom Price (optional)"
         customPrice.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-        layout.addView(amount)
+        if(alertType>0){
+            layout.addView(amount)
+            confirmText = "Yes"
+        }
         if(alertType==1){layout.addView(customPrice)}
 
 
-    // set message of alert dialog
-        dialogBuilder.setMessage("Some text here")
+        dialogBuilder
                 // if the dialog is cancelable
                 .setCancelable(false)
                 // positive button text and action
-                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+                .setPositiveButton(confirmText, DialogInterface.OnClickListener { dialog, id ->
                     run {
-                        val amt = amount.text.toString().toFloat()
                         when(alertType){
                             1 -> {
+                                    val amt = amount.text.toString().toFloat()
                                     println("BUY COIN: $title")
                                     val price = if(customPrice.text.toString().isEmpty()){
                                         0f
@@ -69,21 +72,28 @@ class CustomAlertDialog(
                                     }
                                 }
                             2 -> {
+                                    val amt = amount.text.toString().toFloat()
                                     println("SELL COIN: $title")
-                                    CoroutineScope(IO).launch {
-                                        async { sellCoin(coinId.toInt(), amt) }.await()
-                                        println("COIN SALE COMPLETE: $title, amt: $amt, id: $coinId")
-                                        withContext(Main){activity.recreate()}
+                                    if(amt<=totalAmount.toFloat()){
+                                        CoroutineScope(IO).launch {
+                                            async { sellCoin(coinId.toInt(), amt) }.await()
+                                            println("COIN SALE COMPLETE: $title, amt: $amt, id: $coinId")
+                                            withContext(Main){(activity as Home).confirmSale(true)}
+                                        }
+                                    }else{
+                                        (activity as Home).confirmSale(false)
                                     }
                                 }
                             else -> activity.recreate()
                         }
                     }
                 })
-                // negative button text and action
-                .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                })
+        // negative button text and action
+        if(alertType>0){
+            dialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+        }
 
         // create dialog box
         val alert = dialogBuilder.create()

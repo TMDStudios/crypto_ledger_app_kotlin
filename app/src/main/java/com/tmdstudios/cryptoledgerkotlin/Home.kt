@@ -24,6 +24,11 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
         setupRecyclerView()
 
+        if(intent.getBooleanExtra("bought", false)){
+            showAlert("Coin Bought")
+            intent.putExtra("bought", false)
+        }
+
         lifecycleScope.launchWhenCreated {
             binding.ledgerProgressBar.isVisible = true
             val response = try {
@@ -55,5 +60,23 @@ class Home : AppCompatActivity() {
         ledgerCoinAdapter = LedgerCoinAdapter(this@Home)
         adapter = ledgerCoinAdapter
         layoutManager = LinearLayoutManager(this@Home)
+    }
+
+    fun confirmSale(success: Boolean){
+        if(success){
+            showAlert("Coin Sold")
+        }else{
+            showAlert("Invalid Amount")
+        }
+    }
+
+    private fun showAlert(title: String){
+        CustomAlertDialog(
+                this,
+                title,
+                "",
+                "",
+                0
+        )
     }
 }

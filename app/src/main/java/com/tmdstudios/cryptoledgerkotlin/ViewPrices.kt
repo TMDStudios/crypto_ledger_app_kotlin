@@ -59,6 +59,7 @@ class ViewPrices : AppCompatActivity() {
 
     fun goHome(){
         val intent = Intent(this,Home::class.java)
+        intent.putExtra("bought", true)
         startActivity(intent)
     }
 }
