@@ -39,8 +39,18 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
         val ledgerCoin = ledgerCoins[position]
         holder.binding.apply {
             tvLedgerCoinName.text = ledgerCoin.name
-            tvLedgerCoinPrice.text = ledgerCoin.current_price
-            tvLedgerCoinAmount.text = ledgerCoin.total_amount
+            var decimalPointIndex = ledgerCoin.total_amount.indexOf(".") + 9
+            val totalAmount = "Total Amount: " + ledgerCoin.total_amount.substring(0, decimalPointIndex)
+            tvLedgerCoinAmount.text = totalAmount
+            decimalPointIndex = ledgerCoin._purchase_price.indexOf(".") + 3
+            val purchasePrice = "$" + ledgerCoin._purchase_price.substring(0, decimalPointIndex)
+            tvLedgerCoinPurchasePrice.text = purchasePrice
+            decimalPointIndex = ledgerCoin.current_price.indexOf(".") + 3
+            val currentPrice = "$" + ledgerCoin.current_price.substring(0, decimalPointIndex)
+            tvLedgerCoinPrice.text = currentPrice
+            decimalPointIndex = ledgerCoin.total_value.indexOf(".") + 3
+            val totalValue = "Total Value: $" + ledgerCoin.total_value.substring(0, decimalPointIndex)
+            tvLedgerCoinValue.text = totalValue
             cvLedgerCoin.setOnClickListener {
                 CustomAlertDialog(
                         activity,

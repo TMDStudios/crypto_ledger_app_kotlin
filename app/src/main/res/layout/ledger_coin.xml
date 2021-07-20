@@ -5,6 +5,7 @@
     android:id="@+id/cvLedgerCoin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/baby_blue"
     android:layout_margin="5dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
@@ -30,25 +31,85 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvLedgerCoinPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawablePadding="2dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvLedgerCoinName"
-            android:text="Coin Price" />
-
-        <TextView
             android:id="@+id/tvLedgerCoinAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:drawablePadding="2dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/tvLedgerCoinPrice"
-            android:text="Coin Amount" />
+            android:layout_below="@id/tvLedgerCoinName"
+            android:text="Total Amount: 555" />
+
+        <LinearLayout
+            android:id="@+id/llTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@id/tvLedgerCoinAmount">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Purchase Price" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Current Price" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@id/llTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+                <TextView
+                    android:id="@+id/tvLedgerCoinPurchasePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_gray"
+                    android:text="555" />
+                <TextView
+                    android:id="@+id/tvLedgerCoinPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_gray"
+                    android:text="555" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLedgerCoinValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/llData"
+            android:text="Total Value: 555" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
