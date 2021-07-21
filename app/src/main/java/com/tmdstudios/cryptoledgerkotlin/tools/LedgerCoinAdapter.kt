@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledgerkotlin.tools
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -14,7 +15,6 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
 
     private val diffCallback = object : DiffUtil.ItemCallback<LedgerCoin>() {
         override fun areItemsTheSame(oldItem: LedgerCoin, newItem: LedgerCoin): Boolean {
-//            if(oldItem.sold || oldItem.merged){return true}
             return oldItem.id == newItem.id
         }
         override fun areContentsTheSame(oldItem: LedgerCoin, newItem: LedgerCoin): Boolean {
@@ -48,6 +48,14 @@ class LedgerCoinAdapter(private val activity: Activity): RecyclerView.Adapter<Le
             decimalPointIndex = ledgerCoin.current_price.indexOf(".") + 3
             val currentPrice = "$" + ledgerCoin.current_price.substring(0, decimalPointIndex)
             tvLedgerCoinPrice.text = currentPrice
+            decimalPointIndex = ledgerCoin.total_profit.indexOf(".") + 3
+            val profit = "$" + ledgerCoin.total_profit.substring(0, decimalPointIndex)
+            when{
+                ledgerCoin.total_profit.toFloat() > 0.009 -> tvLedgerProfit.setTextColor(Color.argb(255, 34, 139, 34))
+                ledgerCoin.total_profit.toFloat() < -0.009 -> tvLedgerProfit.setTextColor(Color.RED)
+                else -> tvLedgerProfit.setTextColor(Color.BLACK)
+            }
+            tvLedgerProfit.text = profit
             decimalPointIndex = ledgerCoin.total_value.indexOf(".") + 3
             val totalValue = "Total Value: $" + ledgerCoin.total_value.substring(0, decimalPointIndex)
             tvLedgerCoinValue.text = totalValue

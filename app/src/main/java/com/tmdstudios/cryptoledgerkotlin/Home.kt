@@ -3,6 +3,7 @@ package com.tmdstudios.cryptoledgerkotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +18,16 @@ import java.io.IOException
 class Home : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var ledgerCoinAdapter: LedgerCoinAdapter
+    private lateinit var refreshBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView()
+
+        refreshBtn = findViewById(R.id.btRefreshLedger)
+        refreshBtn.setOnClickListener { this.recreate() }
 
         if(intent.getBooleanExtra("bought", false)){
             showAlert("Coin Bought")
@@ -45,7 +50,9 @@ class Home : AppCompatActivity() {
                 return@launchWhenCreated
             }
             if(response.isSuccessful && response.body() != null){
-                ledgerCoinAdapter.ledgerCoins = response.body()!!.filter { coin -> !coin.merged && !coin.sold }
+                ledgerCoinAdapter.ledgerCoins = response.body()!!
+                        .filter { coin -> !coin.merged && !coin.sold }
+                        .sortedByDescending { coin -> coin.id }
             }else{
                 Log.e("Home", "Response unsuccessful", )
                 Snackbar.make(binding.root, "Response unsuccessful", Snackbar.LENGTH_LONG).show()

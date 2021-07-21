@@ -57,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     android:textColor="@color/light_charcoal"
                     android:text="Purchase Price" />
                 <TextView
@@ -64,8 +65,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     android:textColor="@color/light_charcoal"
                     android:text="Current Price" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Profit" />
             </LinearLayout>
         </LinearLayout>
 
@@ -87,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:text="555" />
                 <TextView
                     android:id="@+id/tvLedgerCoinPrice"
@@ -95,7 +106,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
+                    android:text="555" />
+                <TextView
+                    android:id="@+id/tvLedgerProfit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:text="555" />
             </LinearLayout>
         </LinearLayout>
