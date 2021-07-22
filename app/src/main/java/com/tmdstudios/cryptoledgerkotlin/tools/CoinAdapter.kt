@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.tmdstudios.cryptoledgerkotlin.ViewPrices
 import com.tmdstudios.cryptoledgerkotlin.databinding.CoinBinding
 
 class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
@@ -62,7 +63,11 @@ class CoinAdapter(private val activity: Activity) : RecyclerView.Adapter<CoinAda
             }
             tvPriceBTC.text = coin.price_btc
             tvPriceETH.text = coin.price_eth
-            cvCoin.setOnClickListener { CustomAlertDialog(activity, coinName, "", "", 1) }
+            cvCoin.setOnClickListener {
+                if((activity as ViewPrices).validAPI){
+                    CustomAlertDialog(activity, coinName, "", "", 1)
+                }
+            }
         }
     }
 

@@ -20,11 +20,15 @@ class ViewPrices : AppCompatActivity() {
     private lateinit var coinAdapter: CoinAdapter
     private lateinit var refreshBtn: Button
 
+    var validAPI = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewPricesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupRecyclerView()
+
+        validAPI = intent.getBooleanExtra("validAPI", false)
 
         refreshBtn = findViewById(R.id.btRefreshPrices)
         refreshBtn.setOnClickListener { this.recreate() }
