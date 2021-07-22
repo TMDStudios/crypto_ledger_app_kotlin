@@ -37,7 +37,7 @@ class Home : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             binding.ledgerProgressBar.isVisible = true
             val response = try {
-                RetrofitInstance.api.getLedger("b08d0d5bc719b6b027fd2f9c4332d3ece9f868eb")
+                RetrofitInstance.api.getLedger(intent.getStringExtra("APIKey").toString())
             } catch (e: IOException){
                 Log.e("Home", "IOException, you might not be connected to the internet", )
                 binding.ledgerProgressBar.isVisible = false

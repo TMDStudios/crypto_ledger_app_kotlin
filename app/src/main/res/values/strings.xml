@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Crypto Ledger Kotlin</string>
+    <string name="preference_file_key">com.tmdstudios.CryptoLedgerKotlin.PREFERENCE_FILE_KEY</string>
 </resources>
