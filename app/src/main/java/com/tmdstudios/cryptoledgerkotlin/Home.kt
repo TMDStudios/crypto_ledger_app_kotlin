@@ -35,17 +35,17 @@ class Home : AppCompatActivity() {
         }
 
         lifecycleScope.launchWhenCreated {
-            binding.ledgerProgressBar.isVisible = true
+            binding.rlLoadingLedger.isVisible = true
             val response = try {
                 RetrofitInstance.api.getLedger(intent.getStringExtra("APIKey").toString())
             } catch (e: IOException){
                 Log.e("Home", "IOException, you might not be connected to the internet", )
-                binding.ledgerProgressBar.isVisible = false
+                binding.rlLoadingLedger.isVisible = false
                 Snackbar.make(binding.root, "IOException, you might not be connected to the internet", Snackbar.LENGTH_LONG).show()
                 return@launchWhenCreated
             } catch (e: HttpException) {
                 Log.e("Home", "HTTPException, unexpected response", )
-                binding.ledgerProgressBar.isVisible = false
+                binding.rlLoadingLedger.isVisible = false
                 Snackbar.make(binding.root, "HTTPException, unexpected response", Snackbar.LENGTH_LONG).show()
                 return@launchWhenCreated
             }
@@ -57,7 +57,7 @@ class Home : AppCompatActivity() {
                 Log.e("Home", "Response unsuccessful", )
                 Snackbar.make(binding.root, "Response unsuccessful", Snackbar.LENGTH_LONG).show()
             }
-            binding.ledgerProgressBar.isVisible = false
+            binding.rlLoadingLedger.isVisible = false
         }
 
         title = "My Ledger"

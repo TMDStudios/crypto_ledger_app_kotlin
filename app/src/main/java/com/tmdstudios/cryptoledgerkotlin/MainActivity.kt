@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             updateApiVisibility()
         }
 
-        progressBar = findViewById(R.id.rlLoading)
+        progressBar = findViewById(R.id.rlLoadingMain)
 
         ledgerBtn = findViewById(R.id.btLedger)
         pricesBtn = findViewById(R.id.btPrices)
