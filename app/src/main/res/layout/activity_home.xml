@@ -7,6 +7,42 @@
     android:id="@+id/clRootHome"
     tools:context=".Home">
 
+    <LinearLayout
+        android:id="@+id/llTopLedger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:textSize="20sp"
+            android:background="@color/darkShadow"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="Ticker Text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:padding="2dp"
+            android:textAlignment="center"
+            android:text="My Ledger"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLedgerCoins"
         android:layout_width="match_parent"
@@ -18,7 +54,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/llTopLedger" />
 
     <RelativeLayout
         android:id="@+id/rlLoadingLedger"
@@ -26,7 +62,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone"
-        android:background="@color/blackShadow"
+        android:background="@color/lightShadow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,16 +93,25 @@
         android:layout_height="wrap_content"
         android:background="@color/dark_blue"
         android:orientation="horizontal"
-        android:padding="4dp"
+        android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btBackLedger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="2dp"
+            android:text="Back" />
 
         <Button
             android:id="@+id/btRefreshLedger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="2dp"
             android:text="Refresh" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

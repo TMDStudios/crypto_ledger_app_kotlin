@@ -5,10 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import android.widget.*
 import androidx.core.view.isVisible
 import com.tmdstudios.cryptoledgerkotlin.tools.CustomAlertDialog
 import com.tmdstudios.cryptoledgerkotlin.tools.RetrofitInstance
@@ -27,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ledgerBtn: Button
     private lateinit var pricesBtn: Button
     private lateinit var progressBar: RelativeLayout
+    private lateinit var ticker: TextView
 
     private var apiKey = ""
     private var validAPI = false
@@ -61,13 +59,14 @@ class MainActivity : AppCompatActivity() {
         pricesBtn = findViewById(R.id.btPrices)
         activateButtons(true)
 
+        ticker = findViewById(R.id.tvTicker)
+        ticker.isSelected = true
+
         if(validAPI){
             apiEntry.setText(apiKey)
             showApiKey = false
             updateApiVisibility()
         }
-
-        title = "Crypto Ledger Login"
     }
 
     private fun validateAPI(){
@@ -159,5 +158,6 @@ class MainActivity : AppCompatActivity() {
             apiLayout.isVisible = false
             viewApiButton.text = "View API Key"
         }
+        ticker.text = "You are logged in with the following API Key: $apiKey"
     }
 }

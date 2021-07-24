@@ -1,9 +1,11 @@
 package com.tmdstudios.cryptoledgerkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ class Home : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var ledgerCoinAdapter: LedgerCoinAdapter
     private lateinit var refreshBtn: Button
+    private lateinit var backBtn: Button
+    private lateinit var ticker: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,15 @@ class Home : AppCompatActivity() {
 
         refreshBtn = findViewById(R.id.btRefreshLedger)
         refreshBtn.setOnClickListener { this.recreate() }
+
+        backBtn = findViewById(R.id.btBackLedger)
+        backBtn.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        ticker = findViewById(R.id.tvTicker)
+        ticker.isSelected = true
 
         if(intent.getBooleanExtra("bought", false)){
             showAlert("Coin Bought")
