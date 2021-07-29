@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/miBack"
+        android:icon="@drawable/back_icon"
+        app:showAsAction="always"
+        android:title="Back"
+        />
+
+    <item
+        android:id="@+id/miRefresh"
+        android:icon="@drawable/refresh_icon"
+        app:showAsAction="always"
+        android:title="Refresh"
+        />
+
+    <item
+        android:id="@+id/miAsc"
+        android:icon="@drawable/arrow_up"
+        android:title="Asc"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/miDesc"
+        android:icon="@drawable/arrow_down"
+        android:title="Desc"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/miSearch"
+        android:icon="@drawable/search_icon"
+        android:title="Search"
+        app:showAsAction="always"/>
+
+</menu>

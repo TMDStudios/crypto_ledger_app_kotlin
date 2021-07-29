@@ -4,8 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +25,8 @@ import java.io.IOException
 class Home : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var ledgerCoinAdapter: LedgerCoinAdapter
-    private lateinit var refreshBtn: Button
-    private lateinit var backBtn: Button
+    private lateinit var refreshBtn: ImageButton
+    private lateinit var backBtn: ImageButton
     private lateinit var ticker: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +46,7 @@ class Home : AppCompatActivity() {
 
         ticker = findViewById(R.id.tvTicker)
         ticker.isSelected = true
+        ticker.text = "You are logged in with the following API Key: ${intent.getStringExtra("APIKey").toString()}"
 
         if(intent.getBooleanExtra("bought", false)){
             showAlert("Coin Bought")
@@ -74,6 +80,20 @@ class Home : AppCompatActivity() {
         }
 
         title = "My Ledger"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.miAsc -> println()
+            R.id.miDesc -> println()
+            R.id.miSearch -> println()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupRecyclerView() = binding.rvLedgerCoins.apply {
