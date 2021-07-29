@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledgerkotlin
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -80,20 +81,6 @@ class Home : AppCompatActivity() {
         }
 
         title = "My Ledger"
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.miAsc -> println()
-            R.id.miDesc -> println()
-            R.id.miSearch -> println()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setupRecyclerView() = binding.rvLedgerCoins.apply {

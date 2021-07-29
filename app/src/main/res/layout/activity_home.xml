@@ -47,10 +47,7 @@
         android:id="@+id/rvLedgerCoins"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,8 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/nav_button"
-            android:layout_margin="2dp"
+            app:backgroundTint="@color/blue"
             app:srcCompat="@drawable/back_icon"
             app:tint="@color/white" />
 
@@ -114,8 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/nav_button"
-            android:layout_margin="2dp"
+            app:backgroundTint="@color/blue"
             app:tint="@color/white"
             app:srcCompat="@drawable/refresh_icon" />
 
@@ -124,8 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/nav_button"
-            android:layout_margin="2dp"
+            app:backgroundTint="@color/blue"
             app:tint="@color/white"
             app:srcCompat="@drawable/arrow_up" />
 
@@ -134,8 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/nav_button"
-            android:layout_margin="2dp"
+            app:backgroundTint="@color/blue"
             app:tint="@color/white"
             app:srcCompat="@drawable/arrow_down" />
 
@@ -144,8 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/nav_button"
-            android:layout_margin="2dp"
+            app:backgroundTint="@color/blue"
             app:tint="@color/white"
             app:srcCompat="@drawable/search_icon" />
     </LinearLayout>
