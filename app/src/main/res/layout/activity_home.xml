@@ -115,7 +115,7 @@
             app:srcCompat="@drawable/refresh_icon" />
 
         <ImageButton
-            android:id="@+id/btAsc"
+            android:id="@+id/btAscLedger"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -124,7 +124,7 @@
             app:srcCompat="@drawable/arrow_up" />
 
         <ImageButton
-            android:id="@+id/btDesc"
+            android:id="@+id/btDescLedger"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -133,7 +133,7 @@
             app:srcCompat="@drawable/arrow_down" />
 
         <ImageButton
-            android:id="@+id/btSearch"
+            android:id="@+id/btSearchLedger"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

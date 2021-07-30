@@ -35,10 +35,10 @@ class ViewPrices : AppCompatActivity() {
 
         validAPI = intent.getBooleanExtra("validAPI", false)
 
-        refreshBtn = findViewById(R.id.btRefresh)
+        refreshBtn = findViewById(R.id.btRefreshPrices)
         refreshBtn.setOnClickListener { this.recreate() }
 
-        backBtn = findViewById(R.id.btBack)
+        backBtn = findViewById(R.id.btBackPrices)
         backBtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)

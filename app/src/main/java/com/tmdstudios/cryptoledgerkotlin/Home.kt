@@ -28,6 +28,8 @@ class Home : AppCompatActivity() {
     private lateinit var ledgerCoinAdapter: LedgerCoinAdapter
     private lateinit var refreshBtn: ImageButton
     private lateinit var backBtn: ImageButton
+    private lateinit var ascBtn: ImageButton
+    private lateinit var descBtn: ImageButton
     private lateinit var ticker: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
