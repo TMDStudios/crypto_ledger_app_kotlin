@@ -16,9 +16,14 @@ class HomeViewModel : ViewModel() {
     var showApiKey = true
     var validAPI: MutableLiveData<Boolean> = MutableLiveData()
     var apiChecked = false
+    var tickerData = ""
 
     fun isAPIValid(): MutableLiveData<Boolean> {
         return validAPI
+    }
+
+    init {
+        updateTicker()
     }
 
     fun validateAPI(api: String, sharedPreferences: SharedPreferences){
@@ -56,6 +61,30 @@ class HomeViewModel : ViewModel() {
                     }
                     Log.e("HomeViewModel", "Invalid API Key", )
                 }
+            }
+        }
+    }
+
+    fun updateTicker(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = try {
+                RetrofitInstance.api.getPrices()
+            } catch (e: IOException){
+                e.toString()
+                return@launch
+            } catch (e: HttpException) {
+                e.toString()
+                return@launch
+            }
+            if(response.isSuccessful && response.body() != null){
+                for(i in response.body()!!){
+                    val decimalPoint = i.price.indexOf(".")
+                    val coin = " ${i.symbol} \$${i.price.substring(0, decimalPoint + 3)}"
+                    tickerData += coin
+                }
+                Log.e("HomeViewModel", "data: $tickerData", )
+            }else{
+                Log.e("ViewPrices", "Unable to get prices", )
             }
         }
     }

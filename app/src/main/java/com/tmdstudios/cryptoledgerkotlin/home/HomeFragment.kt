@@ -45,6 +45,10 @@ class HomeFragment : Fragment() {
                 }else{
                     Toast.makeText(requireContext(), "Invalid API Key", Toast.LENGTH_LONG).show()
                 }
+                viewModel.updateTicker()
+            }
+            if(viewModel.tickerData.isNotEmpty()){
+                ticker.text = viewModel.tickerData
             }
         })
 
@@ -103,7 +107,6 @@ class HomeFragment : Fragment() {
             getAPIKeyButton.isVisible = false
             viewApiButton.text = "View API Key"
         }
-        ticker.text = "You are logged in with the following API Key: ${viewModel.apiKey}"
     }
 
 }
