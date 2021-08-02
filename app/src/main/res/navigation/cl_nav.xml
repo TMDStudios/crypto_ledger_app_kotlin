@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/ledgerFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.ledger.LedgerFragment"
+        android:label="Ledger"
+        tools:layout="@layout/ledger_fragment" >
+        <action
+            android:id="@+id/action_ledgerFragment_to_sellCoinFragment"
+            app:destination="@id/sellCoinFragment" />
+        <argument
+            android:name="currentLedgerCoin"
+            app:argType="com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin" />
+    </fragment>
+    <fragment
+        android:id="@+id/pricesFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.prices.PricesFragment"
+        android:label="Prices"
+        tools:layout="@layout/prices_fragment" >
+        <action
+            android:id="@+id/action_pricesFragment_to_buyCoinFragment"
+            app:destination="@id/buyCoinFragment" />
+        <argument
+            android:name="currentCoin"
+            app:argType="com.tmdstudios.cryptoledgerkotlin.models.Coin" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellCoinFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.ledger.SellCoinFragment"
+        android:label="Sell Coin"
+        tools:layout="@layout/fragment_sell_coin" >
+        <action
+            android:id="@+id/action_sellCoinFragment_to_ledgerFragment"
+            app:destination="@id/ledgerFragment" />
+        <argument
+            android:name="currentLedgerCoin"
+            app:argType="com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyCoinFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.prices.BuyCoinFragment"
+        android:label="Buy Coin"
+        tools:layout="@layout/fragment_buy_coin" >
+        <action
+            android:id="@+id/action_buyCoinFragment_to_pricesFragment"
+            app:destination="@id/pricesFragment" />
+        <argument
+            android:name="currentCoin"
+            app:argType="com.tmdstudios.cryptoledgerkotlin.models.Coin" />
+    </fragment>
+</navigation>
