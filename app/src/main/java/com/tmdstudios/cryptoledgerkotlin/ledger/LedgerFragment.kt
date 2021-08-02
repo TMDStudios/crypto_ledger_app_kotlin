@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tmdstudios.cryptoledgerkotlin.R
@@ -39,6 +40,9 @@ class LedgerFragment : Fragment() {
             getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
         viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
+        if(viewModel.apiKey.isEmpty()){
+            Toast.makeText(requireContext(), "Invalid API Key", Toast.LENGTH_LONG).show()
+        }
 
         return view
     }

@@ -2,8 +2,10 @@ package com.tmdstudios.cryptoledgerkotlin.home
 
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
+import com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import java.io.IOException
@@ -11,13 +13,16 @@ import java.lang.IllegalStateException
 
 class HomeViewModel : ViewModel() {
     var apiKey = ""
-    var validAPI = false
     var showApiKey = true
+    var validAPI: MutableLiveData<Boolean> = MutableLiveData()
+    var apiChecked = false
+
+    fun isAPIValid(): MutableLiveData<Boolean> {
+        return validAPI
+    }
 
     fun validateAPI(api: String, sharedPreferences: SharedPreferences){
         apiKey = api
-//        progressBar.isVisible = true
-//        activateButtons(false)
         CoroutineScope(Dispatchers.IO).launch {
             val msg: String = async {
                 try {
@@ -31,22 +36,25 @@ class HomeViewModel : ViewModel() {
                 }
             }.await()
             withContext(Dispatchers.Main){
-//                progressBar.isVisible = false
+                apiChecked = true
                 if(msg=="OK"){
-                    validAPI = true
+                    validAPI.postValue(true)
                     showApiKey = false
-//                    updateApiVisibility()
                     with (sharedPreferences.edit()) {
                         putString("APIKey", apiKey)
-                        putBoolean("validAPI", validAPI)
+                        putBoolean("validAPI", isAPIValid().value!!)
                         apply()
                     }
                     Log.e("HomeViewModel", "API Key accepted!", )
-//                    showAlert("API Key Accepted")
                 }else{
+                    validAPI.postValue(false)
+                    showApiKey = true
+                    with (sharedPreferences.edit()) {
+                        putString("APIKey", "")
+                        putBoolean("validAPI", isAPIValid().value!!)
+                        apply()
+                    }
                     Log.e("HomeViewModel", "Invalid API Key", )
-//                    apiEntry.text.clear()
-//                    showAlert("Invalid API Key")
                 }
             }
         }

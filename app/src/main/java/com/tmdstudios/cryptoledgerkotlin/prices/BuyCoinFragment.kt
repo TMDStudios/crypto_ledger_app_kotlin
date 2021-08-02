@@ -37,6 +37,10 @@ class BuyCoinFragment : Fragment() {
             getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
         viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
+        if(viewModel.apiKey.isEmpty()){
+            Toast.makeText(requireContext(), "Valid API Key needed to buy coins", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_buyCoinFragment_to_pricesFragment)
+        }
 
         val coinName = args.currentCoin.name + " (" + args.currentCoin.symbol + ")"
         view.tvBuyCoinName.text = coinName

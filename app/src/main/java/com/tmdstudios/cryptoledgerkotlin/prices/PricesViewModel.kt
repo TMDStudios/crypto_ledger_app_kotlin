@@ -46,22 +46,26 @@ class PricesViewModel : ViewModel() {
     }
 
     fun buyCoin(name: String, amount: Float, custom_price: Float){
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = try {
-                RetrofitInstance.api.buyCoin(apiKey, BuyCoin(name, amount, custom_price))
-            }catch (e: IOException){
-                Log.e("ViewPrices", "IOException, you might not be connected to the internet", )
-                return@launch
-            }catch (e: HttpException){
-                Log.e("ViewPrices", "HTTPException, unexpected response", )
-                return@launch
-            }
-            if(response.isSuccessful && response.body() != null){
-                Log.e("ViewPrices", "Coin BOUGHT!", )
-            }else{
-                Log.e("BuyCoin", "ISSUE! coin: $name, amt: $amount, price: $custom_price, response: $response", )
-            }
+        if(apiKey.isNotEmpty()){
+            viewModelScope.launch(Dispatchers.IO) {
+                val response = try {
+                    RetrofitInstance.api.buyCoin(apiKey, BuyCoin(name, amount, custom_price))
+                }catch (e: IOException){
+                    Log.e("ViewPrices", "IOException, you might not be connected to the internet", )
+                    return@launch
+                }catch (e: HttpException){
+                    Log.e("ViewPrices", "HTTPException, unexpected response", )
+                    return@launch
+                }
+                if(response.isSuccessful && response.body() != null){
+                    Log.e("ViewPrices", "Coin BOUGHT!", )
+                }else{
+                    Log.e("BuyCoin", "ISSUE! coin: $name, amt: $amount, price: $custom_price, response: $response", )
+                }
 
+            }
+        }else{
+            Log.e("ViewPrices", "Invalid API Key", )
         }
     }
 }
