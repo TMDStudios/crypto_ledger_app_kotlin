@@ -5,21 +5,24 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
-import com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import java.io.IOException
-import java.lang.IllegalStateException
 
 class HomeViewModel : ViewModel() {
     var apiKey = ""
     var showApiKey = true
     var validAPI: MutableLiveData<Boolean> = MutableLiveData()
     var apiChecked = false
-    var tickerData = ""
+    var tempTickerData = ""
+    var tickerData: MutableLiveData<String> = MutableLiveData()
 
     fun isAPIValid(): MutableLiveData<Boolean> {
         return validAPI
+    }
+
+    fun checkTickerData(): MutableLiveData<String>{
+        return tickerData
     }
 
     init {
@@ -45,21 +48,23 @@ class HomeViewModel : ViewModel() {
                 if(msg=="OK"){
                     validAPI.postValue(true)
                     showApiKey = false
-                    with (sharedPreferences.edit()) {
+                    with(sharedPreferences.edit()) {
                         putString("APIKey", apiKey)
                         putBoolean("validAPI", isAPIValid().value!!)
+                        putString("TickerData", checkTickerData().value!!)
                         apply()
                     }
-                    Log.e("HomeViewModel", "API Key accepted!", )
+                    Log.e("HomeViewModel", "API Key accepted!")
                 }else{
                     validAPI.postValue(false)
                     showApiKey = true
-                    with (sharedPreferences.edit()) {
+                    with(sharedPreferences.edit()) {
                         putString("APIKey", "")
                         putBoolean("validAPI", isAPIValid().value!!)
+                        putString("TickerData", checkTickerData().value!!)
                         apply()
                     }
-                    Log.e("HomeViewModel", "Invalid API Key", )
+                    Log.e("HomeViewModel", "Invalid API Key")
                 }
             }
         }
@@ -79,13 +84,24 @@ class HomeViewModel : ViewModel() {
             if(response.isSuccessful && response.body() != null){
                 for(i in response.body()!!){
                     val decimalPoint = i.price.indexOf(".")
-                    val coin = " ${i.symbol} \$${i.price.substring(0, decimalPoint + 3)}"
-                    tickerData += coin
+                    var coin = " ${i.symbol} "
+                    var price = "\$${i.price.substring(0, decimalPoint + 3)} "
+                    if(i.price_1h < 0){
+                        coin = colorFilter(coin, price, "#FF0000")
+                    }else{
+                        coin = colorFilter(coin, price, "#7fff00")
+                    }
+                    tempTickerData += coin
                 }
-                Log.e("HomeViewModel", "data: $tickerData", )
+                tickerData.postValue(tempTickerData)
+                Log.e("HomeViewModel", "data: $tickerData")
             }else{
-                Log.e("ViewPrices", "Unable to get prices", )
+                Log.e("ViewPrices", "Unable to get prices")
             }
         }
+    }
+
+    private fun colorFilter(coin: String, price: String, color: String): String {
+        return "<font color=#FFFFFFFF>$coin</font> <font color=$color>$price</font>"
     }
 }

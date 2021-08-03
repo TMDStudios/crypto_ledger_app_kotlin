@@ -21,12 +21,12 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:textSize="20sp"
-            android:background="@color/darkShadow"
+            android:background="@color/charcoal"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:text="Ticker Text" />
+            android:text="" />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,8 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:padding="32dp">
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="48dp"
+        android:layout_gravity="center">
 
         <EditText
             android:id="@+id/etAPIKey"
@@ -71,7 +73,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:padding="32dp">
+        android:paddingBottom="32dp">
 
         <Button
             android:id="@+id/btSeeAPI"

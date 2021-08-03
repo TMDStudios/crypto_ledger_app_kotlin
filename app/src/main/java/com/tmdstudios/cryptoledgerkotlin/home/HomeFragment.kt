@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,10 +46,17 @@ class HomeFragment : Fragment() {
                 }else{
                     Toast.makeText(requireContext(), "Invalid API Key", Toast.LENGTH_LONG).show()
                 }
-                viewModel.updateTicker()
             }
-            if(viewModel.tickerData.isNotEmpty()){
-                ticker.text = viewModel.tickerData
+//            if(viewModel.newTickerData){
+//                if(viewModel.tickerData.isNotEmpty()){
+//                    ticker.text = Html.fromHtml(viewModel.tickerData)
+//                }
+//                ticker.text = Html.fromHtml(viewModel.tickerData)
+//            }
+        })
+        viewModel.checkTickerData().observe(viewLifecycleOwner, Observer {
+            if(viewModel.tickerData.value!!.isNotEmpty()){
+                ticker.text = Html.fromHtml(viewModel.tickerData.value)
             }
         })
 
@@ -57,12 +65,14 @@ class HomeFragment : Fragment() {
 
         viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
         viewModel.validAPI.postValue(sharedPreferences.getBoolean("validAPI", false))
+        viewModel.tickerData.postValue(sharedPreferences.getString("TickerData", "").toString())
 
         apiLayout = view.llAPIHolder
         apiEntry = view.etAPIKey
         apiSubmitButton = view.btEnterKey
         apiSubmitButton.setOnClickListener {
             viewModel.validateAPI(apiEntry.text.toString(), sharedPreferences)
+//            updateApiVisibility(viewModel.showApiKey)
             // Hide Keyboard
             val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
