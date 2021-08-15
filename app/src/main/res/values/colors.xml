@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0000ff</color>
     <color name="dark_blue">#000099</color>
+    <color name="dark_blue_alpha">#40000099</color>
     <color name="charcoal">#1a1a1a</color>
     <color name="light_charcoal">#333333</color>
     <color name="light_gray">#777777</color>
