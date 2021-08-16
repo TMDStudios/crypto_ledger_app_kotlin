@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../IDEs/sdk/icons/material/materialicons/search/baseline_search_24.xml" />
+                                      <entry key="url" value="jar:file:/D:/IDEs/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialicons/clear/baseline_clear_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="search_icon" />
+                            <entry key="outputName" value="clear_icon" />
                             <entry key="sourceFile" value="C:\Users\ming\AndroidStudioProjects\CryptoLedgerKotlin" />
                           </map>
                         </option>

@@ -26,8 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/menu_icon"
@@ -35,8 +33,7 @@
         app:elevation="0dp"
         app:pressedTranslationZ="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSort"
@@ -44,18 +41,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
+        android:scaleX=".8"
+        android:scaleY=".8"
         android:src="@drawable/sort_icon"
         app:backgroundTint="@color/dark_blue_alpha"
         app:elevation="0dp"
         app:pressedTranslationZ="0dp"
         app:layout_constraintBottom_toTopOf="@id/fabMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSearch"
@@ -63,17 +59,51 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
+        android:scaleX=".8"
+        android:scaleY=".8"
         android:src="@drawable/search_icon"
         app:backgroundTint="@color/dark_blue_alpha"
         app:elevation="0dp"
         app:pressedTranslationZ="0dp"
         app:layout_constraintBottom_toTopOf="@id/fabSort"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        android:visibility="gone"
+        android:src="@drawable/clear_icon"
+        app:backgroundTint="@color/dark_blue_alpha"
+        app:elevation="0dp"
+        app:pressedTranslationZ="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fabMenu" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSearch"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/blue"
+        android:layout_margin="16dp"
+        android:paddingStart="16dp"
+        android:hint="Search"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fabClear"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

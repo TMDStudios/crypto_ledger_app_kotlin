@@ -11,10 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.*
 
 class PricesViewModel : ViewModel() {
     var priceData: MutableLiveData<List<Coin>> = MutableLiveData()
     var apiKey = ""
+    var sortMethod = "Asc"
 
     init {
         makeApiCall()
@@ -24,7 +26,7 @@ class PricesViewModel : ViewModel() {
         return priceData
     }
 
-    private fun makeApiCall(){
+    fun makeApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
             val response = try {
                 RetrofitInstance.api.getPrices()
@@ -38,7 +40,17 @@ class PricesViewModel : ViewModel() {
             if(response.isSuccessful && response.body() != null){
                 Log.e("ViewPrices", "Got the data! ${response.message()}", )
                 Log.e("ViewPrices", "******** ${response.body()}", )
-                priceData.postValue(response.body())
+                if(sortMethod=="Asc"){
+                    priceData.postValue(response.body()!!.sortedBy { coin -> coin.name })
+                }else if(sortMethod=="Desc"){
+                    priceData.postValue(response.body()!!.sortedByDescending { coin -> coin.name })
+                }else{
+                    priceData.postValue(response.body()!!
+                        .filter { coin -> coin.name.toUpperCase(Locale.ROOT).contains(sortMethod.toUpperCase(Locale.ROOT)) ||
+                                coin.symbol.contains(sortMethod.toUpperCase(Locale.ROOT)) }
+                        .sortedBy { coin -> coin.name })
+                }
+
             }else{
                 Log.e("ViewPrices", "Unable to get prices", )
             }

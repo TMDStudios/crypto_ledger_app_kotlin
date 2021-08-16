@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.adapters.CoinAdapter
@@ -26,10 +30,15 @@ class PricesFragment : Fragment() {
     private val zoomClose: Animation by lazy { AnimationUtils.loadAnimation(this.activity, R.anim.close_zoom_anim) }
     private val expand: Animation by lazy { AnimationUtils.loadAnimation(this.activity, R.anim.expand_anim) }
     private val retract: Animation by lazy { AnimationUtils.loadAnimation(this.activity, R.anim.retract_anim) }
+    private val leftOpen: Animation by lazy { AnimationUtils.loadAnimation(this.activity, R.anim.open_left_anim) }
+    private val leftClose: Animation by lazy { AnimationUtils.loadAnimation(this.activity, R.anim.close_left_anim) }
 
     private lateinit var fabMenu: FloatingActionButton
     private lateinit var fabSort: FloatingActionButton
     private lateinit var fabSearch: FloatingActionButton
+    private lateinit var fabClear: FloatingActionButton
+    private lateinit var etSearch: EditText
+    private lateinit var rvCoins: RecyclerView
 
     private var clicked = false
 
@@ -47,6 +56,7 @@ class PricesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PricesViewModel::class.java)
         viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer { coin -> adapter.setData(coin) })
 
+        rvCoins = view.rvCoins
 
         fabMenu = view.fabMenu
         fabMenu.setOnClickListener {
@@ -54,14 +64,35 @@ class PricesFragment : Fragment() {
         }
         fabSort = view.fabSort
         fabSort.setOnClickListener {
-            Toast.makeText(this.activity, "Sorting", Toast.LENGTH_LONG).show()
+            if(viewModel.sortMethod=="Asc"){viewModel.sortMethod="Desc"}else{viewModel.sortMethod="Asc"}
+            viewModel.makeApiCall()
+            Toast.makeText(this.activity, viewModel.sortMethod, Toast.LENGTH_LONG).show()
         }
         fabSearch = view.fabSearch
         fabSearch.setOnClickListener {
-            Toast.makeText(this.activity, "Searching", Toast.LENGTH_LONG).show()
+            menuButtonClicked()
+            hideKeyboard(this.requireView())
+            viewModel.sortMethod = etSearch.text.toString()
+            viewModel.makeApiCall()
+            Toast.makeText(this.activity, viewModel.sortMethod, Toast.LENGTH_LONG).show()
         }
+        fabClear = view.fabClear
+        fabClear.setOnClickListener {
+            menuButtonClicked()
+            hideKeyboard(this.requireView())
+            etSearch.text.clear()
+            viewModel.sortMethod = "Asc"
+            viewModel.makeApiCall()
+            Toast.makeText(this.activity, "Search cleared", Toast.LENGTH_LONG).show()
+        }
+        etSearch = view.etSearch
 
         return view
+    }
+
+    private fun hideKeyboard(view: View){
+        val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun menuButtonClicked(){
@@ -75,9 +106,13 @@ class PricesFragment : Fragment() {
         if(!clicked){
             fabSort.visibility = View.VISIBLE
             fabSearch.visibility = View.VISIBLE
+            fabClear.visibility = View.VISIBLE
+            etSearch.visibility = View.VISIBLE
         }else{
             fabSort.visibility = View.GONE
             fabSearch.visibility = View.GONE
+            fabClear.visibility = View.GONE
+            etSearch.visibility = View.GONE
         }
     }
 
@@ -86,10 +121,16 @@ class PricesFragment : Fragment() {
             fabMenu.startAnimation(zoomOpen)
             fabSort.startAnimation(expand)
             fabSearch.startAnimation(expand)
+            fabClear.startAnimation(leftOpen)
+            etSearch.startAnimation(leftOpen)
+            rvCoins.setPadding(8,8,8,128)
         }else{
             fabMenu.startAnimation(zoomClose)
             fabSort.startAnimation(retract)
             fabSearch.startAnimation(retract)
+            fabClear.startAnimation(leftClose)
+            etSearch.startAnimation(leftClose)
+            rvCoins.setPadding(8,8,8,8)
         }
     }
 
@@ -97,9 +138,13 @@ class PricesFragment : Fragment() {
         if(!clicked){
             fabSort.isClickable = true
             fabSearch.isClickable = true
+            fabClear.isClickable = true
+            etSearch.isClickable = true
         }else{
             fabSort.isClickable = false
             fabSearch.isClickable = false
+            fabClear.isClickable = false
+            etSearch.isClickable = false
         }
     }
 
