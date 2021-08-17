@@ -54,24 +54,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        android:scaleX=".8"
-        android:scaleY=".8"
-        android:src="@drawable/search_icon"
-        app:backgroundTint="@color/dark_blue_alpha"
-        app:elevation="0dp"
-        app:pressedTranslationZ="0dp"
-        app:layout_constraintBottom_toTopOf="@id/fabSort"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,6 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/etSearch"
+        android:singleLine="true"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:backgroundTint="@color/blue"
@@ -102,6 +85,7 @@
         android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
+        android:imeOptions="actionSearch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/fabClear"
         app:layout_constraintStart_toStartOf="parent" />
