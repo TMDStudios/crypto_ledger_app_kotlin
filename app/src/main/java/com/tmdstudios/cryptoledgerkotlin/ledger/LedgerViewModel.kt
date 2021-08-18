@@ -12,10 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.*
 
 class LedgerViewModel : ViewModel() {
     var priceData: MutableLiveData<List<LedgerCoin>> = MutableLiveData()
     var apiKey = ""
+    var sortMethod = "Asc"
 
     init {
         makeApiCall()
@@ -39,9 +41,23 @@ class LedgerViewModel : ViewModel() {
                 }
                 if(response.isSuccessful && response.body() != null){
                     Log.e("Ledger", "Got the data! ${response.body()}", )
-                    priceData.postValue(response.body()!!
+//                    priceData.postValue(response.body()!!
+//                        .filter { coin -> !coin.merged && !coin.sold }
+//                        .sortedByDescending { coin -> coin.id })
+                    if(sortMethod=="Asc"){
+                        priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }
-                            .sortedByDescending { coin -> coin.id })
+                            .sortedBy { coin -> coin.name })
+                    }else if(sortMethod=="Desc"){
+                        priceData.postValue(response.body()!!
+                            .filter { coin -> !coin.merged && !coin.sold }
+                            .sortedByDescending { coin -> coin.name })
+                    }else{
+                        priceData.postValue(response.body()!!
+                            .filter { coin -> !coin.merged && !coin.sold }
+                            .filter { coin -> coin.name.toUpperCase(Locale.ROOT).contains(sortMethod.toUpperCase(Locale.ROOT)) }
+                            .sortedBy { coin -> coin.name })
+                    }
                 }else{
                     Log.e("Ledger", "Unable to get prices", )
 
