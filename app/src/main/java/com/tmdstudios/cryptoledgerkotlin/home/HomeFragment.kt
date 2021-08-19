@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -46,13 +47,8 @@ class HomeFragment : Fragment() {
                 }else{
                     Toast.makeText(requireContext(), "Invalid API Key", Toast.LENGTH_LONG).show()
                 }
+                updateApiVisibility(viewModel.showApiKey)
             }
-//            if(viewModel.newTickerData){
-//                if(viewModel.tickerData.isNotEmpty()){
-//                    ticker.text = Html.fromHtml(viewModel.tickerData)
-//                }
-//                ticker.text = Html.fromHtml(viewModel.tickerData)
-//            }
         })
         viewModel.checkTickerData().observe(viewLifecycleOwner, Observer {
             if(viewModel.tickerData.value!!.isNotEmpty()){
@@ -69,13 +65,19 @@ class HomeFragment : Fragment() {
 
         apiLayout = view.llAPIHolder
         apiEntry = view.etAPIKey
+        apiEntry.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    submitAPI(view)
+                    true
+                }
+                else -> false
+            }
+        }
+
         apiSubmitButton = view.btEnterKey
         apiSubmitButton.setOnClickListener {
-            viewModel.validateAPI(apiEntry.text.toString(), sharedPreferences)
-//            updateApiVisibility(viewModel.showApiKey)
-            // Hide Keyboard
-            val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            submitAPI(view)
         }
 
         viewApiButton = view.btSeeAPI
@@ -117,6 +119,12 @@ class HomeFragment : Fragment() {
             getAPIKeyButton.isVisible = false
             viewApiButton.text = "View API Key"
         }
+    }
+
+    private fun submitAPI(view: View){
+        viewModel.validateAPI(apiEntry.text.toString(), sharedPreferences)
+        val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.*
 class LedgerViewModel : ViewModel() {
     var priceData: MutableLiveData<List<LedgerCoin>> = MutableLiveData()
     var apiKey = ""
-    var sortMethod = "Asc"
+    var sortMethod = "0"
 
     init {
         makeApiCall()
@@ -44,7 +44,11 @@ class LedgerViewModel : ViewModel() {
 //                    priceData.postValue(response.body()!!
 //                        .filter { coin -> !coin.merged && !coin.sold }
 //                        .sortedByDescending { coin -> coin.id })
-                    if(sortMethod=="Asc"){
+                    if(sortMethod=="0"){
+                        priceData.postValue(response.body()!!
+                            .filter { coin -> !coin.merged && !coin.sold }
+                            .sortedByDescending { coin -> coin.id })
+                    }else if(sortMethod=="Asc"){
                         priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }
                             .sortedBy { coin -> coin.name })

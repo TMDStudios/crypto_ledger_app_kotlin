@@ -85,7 +85,7 @@ class LedgerFragment : Fragment() {
             menuButtonClicked()
             hideKeyboard(this.requireView())
             etSearch.text.clear()
-            viewModel.sortMethod = "Asc"
+            viewModel.sortMethod = "0"
             viewModel.makeApiCall()
             Toast.makeText(this.activity, "Search cleared", Toast.LENGTH_LONG).show()
         }
