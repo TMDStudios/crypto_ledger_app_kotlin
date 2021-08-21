@@ -13,14 +13,17 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.adapters.LedgerCoinAdapter
+import kotlinx.android.synthetic.main.home_fragment.view.*
 import kotlinx.android.synthetic.main.ledger_fragment.view.*
 import kotlinx.android.synthetic.main.prices_fragment.view.*
 
@@ -42,6 +45,8 @@ class LedgerFragment : Fragment() {
     private lateinit var etSearch: EditText
     private lateinit var rvCoins: RecyclerView
 
+    private lateinit var progressBar: RelativeLayout
+
     private var clicked = false
 
     override fun onCreateView(
@@ -57,7 +62,11 @@ class LedgerFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(LedgerViewModel::class.java)
         viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer {
-                ledgerCoin -> adapter.setData(ledgerCoin)
+                ledgerCoin ->
+            run {
+                progressBar.isVisible = viewModel.showProgressBar
+                adapter.setData(ledgerCoin)
+            }
         })
 
         sharedPreferences = this.requireActivity().getSharedPreferences(
@@ -67,6 +76,8 @@ class LedgerFragment : Fragment() {
         if(viewModel.apiKey.isEmpty()){
             Toast.makeText(requireContext(), "Invalid API Key", Toast.LENGTH_LONG).show()
         }
+
+        progressBar = view.rlLoadingLedger
 
         rvCoins = view.rvLedgerCoins
 

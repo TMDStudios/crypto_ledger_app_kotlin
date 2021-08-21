@@ -18,6 +18,7 @@ class LedgerViewModel : ViewModel() {
     var priceData: MutableLiveData<List<LedgerCoin>> = MutableLiveData()
     var apiKey = ""
     var sortMethod = "0"
+    var showProgressBar = true
 
     init {
         makeApiCall()
@@ -29,6 +30,7 @@ class LedgerViewModel : ViewModel() {
 
     fun makeApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
+            showProgressBar = true
             if(apiKey.isNotEmpty()){
                 val response = try {
                     RetrofitInstance.api.getLedger(apiKey)
@@ -40,6 +42,7 @@ class LedgerViewModel : ViewModel() {
                     return@launch
                 }
                 if(response.isSuccessful && response.body() != null){
+                    showProgressBar = false
                     Log.e("Ledger", "Got the data! ${response.body()}", )
 //                    priceData.postValue(response.body()!!
 //                        .filter { coin -> !coin.merged && !coin.sold }
