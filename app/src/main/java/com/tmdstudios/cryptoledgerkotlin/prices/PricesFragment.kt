@@ -11,14 +11,17 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.adapters.CoinAdapter
+import kotlinx.android.synthetic.main.ledger_fragment.view.*
 import kotlinx.android.synthetic.main.prices_fragment.*
 import kotlinx.android.synthetic.main.prices_fragment.view.*
 
@@ -39,6 +42,8 @@ class PricesFragment : Fragment() {
     private lateinit var etSearch: EditText
     private lateinit var rvCoins: RecyclerView
 
+    private lateinit var progressBar: RelativeLayout
+
     private var clicked = false
 
     override fun onCreateView(
@@ -53,7 +58,14 @@ class PricesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel = ViewModelProvider(this).get(PricesViewModel::class.java)
-        viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer { coin -> adapter.setData(coin) })
+        viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer {
+                coin -> adapter.setData(coin)
+        })
+        viewModel.checkProgressBar().observe(viewLifecycleOwner, Observer {
+                progressBarVisible -> progressBar.isVisible = progressBarVisible
+        })
+
+        progressBar = view.rlLoadingPrices
 
         rvCoins = view.rvCoins
 

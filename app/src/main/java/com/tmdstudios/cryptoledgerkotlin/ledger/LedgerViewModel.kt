@@ -9,6 +9,7 @@ import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
 import com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin
 import com.tmdstudios.cryptoledgerkotlin.models.SellCoin
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -18,10 +19,14 @@ class LedgerViewModel : ViewModel() {
     var priceData: MutableLiveData<List<LedgerCoin>> = MutableLiveData()
     var apiKey = ""
     var sortMethod = "0"
-    var showProgressBar = true
+    var showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         makeApiCall()
+    }
+
+    fun checkProgressBar(): MutableLiveData<Boolean>{
+        return showProgressBar
     }
 
     fun getPriceObserver(): MutableLiveData<List<LedgerCoin>> {
@@ -30,7 +35,7 @@ class LedgerViewModel : ViewModel() {
 
     fun makeApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
-            showProgressBar = true
+            showProgressBar.postValue(true)
             if(apiKey.isNotEmpty()){
                 val response = try {
                     RetrofitInstance.api.getLedger(apiKey)
@@ -42,7 +47,6 @@ class LedgerViewModel : ViewModel() {
                     return@launch
                 }
                 if(response.isSuccessful && response.body() != null){
-                    showProgressBar = false
                     Log.e("Ledger", "Got the data! ${response.body()}", )
 //                    priceData.postValue(response.body()!!
 //                        .filter { coin -> !coin.merged && !coin.sold }
@@ -72,6 +76,8 @@ class LedgerViewModel : ViewModel() {
             }else{
                 Log.e("Ledger", "Invalid API Key", )
             }
+            delay(500L)
+            showProgressBar.postValue(false)
         }
     }
 

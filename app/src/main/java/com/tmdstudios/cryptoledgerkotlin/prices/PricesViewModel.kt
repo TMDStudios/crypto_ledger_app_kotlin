@@ -8,6 +8,7 @@ import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
 import com.tmdstudios.cryptoledgerkotlin.models.BuyCoin
 import com.tmdstudios.cryptoledgerkotlin.models.Coin
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -17,9 +18,14 @@ class PricesViewModel : ViewModel() {
     var priceData: MutableLiveData<List<Coin>> = MutableLiveData()
     var apiKey = ""
     var sortMethod = "Asc"
+    var showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         makeApiCall()
+    }
+
+    fun checkProgressBar(): MutableLiveData<Boolean>{
+        return showProgressBar
     }
 
     fun getPriceObserver(): MutableLiveData<List<Coin>>{
@@ -28,6 +34,7 @@ class PricesViewModel : ViewModel() {
 
     fun makeApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
+            showProgressBar.postValue(true)
             val response = try {
                 RetrofitInstance.api.getPrices()
             }catch (e: IOException){
@@ -54,6 +61,8 @@ class PricesViewModel : ViewModel() {
             }else{
                 Log.e("ViewPrices", "Unable to get prices", )
             }
+            delay(500L)
+            showProgressBar.postValue(false)
         }
     }
 

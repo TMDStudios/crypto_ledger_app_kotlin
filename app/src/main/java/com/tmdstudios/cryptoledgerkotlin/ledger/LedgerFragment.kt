@@ -62,11 +62,10 @@ class LedgerFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(LedgerViewModel::class.java)
         viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer {
-                ledgerCoin ->
-            run {
-                progressBar.isVisible = viewModel.showProgressBar
-                adapter.setData(ledgerCoin)
-            }
+                ledgerCoin -> adapter.setData(ledgerCoin)
+        })
+        viewModel.checkProgressBar().observe(viewLifecycleOwner, Observer {
+            progressBarVisible -> progressBar.isVisible = progressBarVisible
         })
 
         sharedPreferences = this.requireActivity().getSharedPreferences(

@@ -16,9 +16,14 @@ class HomeViewModel : ViewModel() {
     var apiChecked = false
     var tempTickerData = ""
     var tickerData: MutableLiveData<String> = MutableLiveData()
+    var showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
 
     fun isAPIValid(): MutableLiveData<Boolean> {
         return validAPI
+    }
+
+    fun checkProgressBar(): MutableLiveData<Boolean>{
+        return showProgressBar
     }
 
     fun checkTickerData(): MutableLiveData<String>{
@@ -30,6 +35,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun validateAPI(api: String, sharedPreferences: SharedPreferences){
+        showProgressBar.postValue(true)
         apiKey = api
         CoroutineScope(Dispatchers.IO).launch {
             val msg: String = async {
@@ -67,6 +73,8 @@ class HomeViewModel : ViewModel() {
                     Log.e("HomeViewModel", "Invalid API Key")
                 }
             }
+            delay(500L)
+            showProgressBar.postValue(false)
         }
     }
 

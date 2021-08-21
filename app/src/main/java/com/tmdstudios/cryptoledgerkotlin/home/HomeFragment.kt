@@ -55,6 +55,9 @@ class HomeFragment : Fragment() {
                 ticker.text = Html.fromHtml(viewModel.tickerData.value)
             }
         })
+        viewModel.checkProgressBar().observe(viewLifecycleOwner, Observer {
+                progressBarVisible -> progressBar.isVisible = progressBarVisible
+        })
 
         sharedPreferences = this.requireActivity().getSharedPreferences(
             getString(R.string.preference_file_key), Context.MODE_PRIVATE)
