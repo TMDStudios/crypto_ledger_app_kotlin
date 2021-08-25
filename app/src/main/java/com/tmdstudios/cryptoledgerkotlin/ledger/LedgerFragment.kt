@@ -2,6 +2,7 @@ package com.tmdstudios.cryptoledgerkotlin.ledger
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -46,6 +48,7 @@ class LedgerFragment : Fragment() {
     private lateinit var rvCoins: RecyclerView
 
     private lateinit var progressBar: RelativeLayout
+    private lateinit var clBottom: ConstraintLayout
 
     private var clicked = false
 
@@ -77,6 +80,7 @@ class LedgerFragment : Fragment() {
         }
 
         progressBar = view.rlLoadingLedger
+        clBottom = view.clBottomLedger
 
         rvCoins = view.rvLedgerCoins
 
@@ -137,10 +141,12 @@ class LedgerFragment : Fragment() {
             fabSort.visibility = View.VISIBLE
             fabClear.visibility = View.VISIBLE
             etSearch.visibility = View.VISIBLE
+            clBottom.setBackgroundColor(Color.argb(223,255,255,255))
         }else{
             fabSort.visibility = View.GONE
             fabClear.visibility = View.GONE
             etSearch.visibility = View.GONE
+            clBottom.setBackgroundColor(Color.argb(0,0,0,0))
         }
     }
 
@@ -150,13 +156,11 @@ class LedgerFragment : Fragment() {
             fabSort.startAnimation(expand)
             fabClear.startAnimation(leftOpen)
             etSearch.startAnimation(leftOpen)
-            rvCoins.setPadding(8,8,8,128)
         }else{
             fabMenu.startAnimation(zoomClose)
             fabSort.startAnimation(retract)
             fabClear.startAnimation(leftClose)
             etSearch.startAnimation(leftClose)
-            rvCoins.setPadding(8,8,8,8)
         }
     }
 
