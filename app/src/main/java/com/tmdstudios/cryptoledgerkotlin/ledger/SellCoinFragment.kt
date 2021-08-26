@@ -36,13 +36,18 @@ class SellCoinFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sell_coin, container, false)
 
         viewModel = ViewModelProvider(this).get(LedgerViewModel::class.java)
-        viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer {
-            // Hide Keyboard
-            val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
-            Toast.makeText(requireContext(),
-                "${view.etSellAmount.text} ${args.currentLedgerCoin.name} sold!", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_sellCoinFragment_to_ledgerFragment)
+
+        viewModel.isCoinSold().observe(viewLifecycleOwner, Observer {
+            coinSold -> run {
+            if(coinSold){
+                viewModel.coinSold.postValue(false)
+                val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
+                imm?.hideSoftInputFromWindow(view.windowToken, 0)
+                Toast.makeText(requireContext(),
+                    "${view.etSellAmount.text} ${args.currentLedgerCoin.name} sold!", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_sellCoinFragment_to_ledgerFragment)
+            }
+        }
         })
 
         sharedPreferences = this.requireActivity().getSharedPreferences(

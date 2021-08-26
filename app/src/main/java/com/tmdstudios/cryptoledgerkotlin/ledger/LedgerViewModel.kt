@@ -20,6 +20,7 @@ class LedgerViewModel : ViewModel() {
     var apiKey = ""
     var sortMethod = "0"
     var showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
+    var coinSold: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         makeApiCall()
@@ -31,6 +32,10 @@ class LedgerViewModel : ViewModel() {
 
     fun getPriceObserver(): MutableLiveData<List<LedgerCoin>> {
         return priceData
+    }
+
+    fun isCoinSold(): MutableLiveData<Boolean>{
+        return coinSold
     }
 
     fun makeApiCall(){
@@ -94,6 +99,7 @@ class LedgerViewModel : ViewModel() {
             }
             if(response.isSuccessful && response.body() != null){
                 Log.e("SellCoin", "Coin SOLD", )
+                coinSold.postValue(true)
                 makeApiCall()
             }else{
                 Log.e("SellCoin", "ISSUE! id: $coinID, amt: $amt, response: $response", )
