@@ -2,6 +2,7 @@ package com.tmdstudios.cryptoledgerkotlin.prices
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tmdstudios.cryptoledgerkotlin.R
+import kotlinx.android.synthetic.main.coin.view.*
 import kotlinx.android.synthetic.main.fragment_buy_coin.view.*
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
 
@@ -44,9 +46,25 @@ class BuyCoinFragment : Fragment() {
 
         val coinName = args.currentCoin.name + " (" + args.currentCoin.symbol + ")"
         view.tvBuyCoinName.text = coinName
-        view.tvBuyCoinPrice.text = args.currentCoin.price
-        view.tvBuyCoinPrice1h.text = args.currentCoin.price_1h.toString()
-        view.tvBuyCoinPrice24h.text = args.currentCoin.price_24h.toString()
+        var decimalPointIndex = args.currentCoin.price.indexOf(".") + 5
+        val price = "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
+        view.tvBuyCoinPrice.text = price
+        decimalPointIndex = args.currentCoin.price_1h.toString().indexOf(".") + 5
+        val price1h = args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        view.tvBuyCoinPrice1h.text = price1h
+        when {
+            args.currentCoin.price_1h<0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.RED)}
+            args.currentCoin.price_1h>0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.argb(255, 34, 139, 34))}
+            else -> {view.tvBuyCoinPrice1h.setTextColor(Color.argb(255, 48, 48, 48))}
+        }
+        decimalPointIndex = args.currentCoin.price_24h.toString().indexOf(".") + 5
+        val price24h = args.currentCoin.price_24h.toString().substring(0, decimalPointIndex) + " %"
+        view.tvBuyCoinPrice24h.text = price24h
+        when {
+            args.currentCoin.price_24h<0 -> {view.tvBuyCoinPrice24h.setTextColor(Color.RED)}
+            args.currentCoin.price_24h>0 -> {view.tvBuyCoinPrice24h.setTextColor(Color.argb(255, 34, 139, 34))}
+            else -> {view.tvBuyCoinPrice24h.setTextColor(Color.argb(255, 48, 48, 48))}
+        }
         view.tvBuyCoinPriceBTC.text = args.currentCoin.price_btc
         view.tvBuyCoinPriceETH.text = args.currentCoin.price_eth
 
