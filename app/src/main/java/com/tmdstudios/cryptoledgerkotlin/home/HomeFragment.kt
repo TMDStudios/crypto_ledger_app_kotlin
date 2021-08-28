@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var progressBar: RelativeLayout
     private lateinit var ticker: TextView
     private lateinit var getAPIKeyButton: Button
+    private lateinit var tmdIcon: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,6 +99,7 @@ class HomeFragment : Fragment() {
         }
 
         progressBar = view.rlLoadingMain
+        tmdIcon = view.ivTmdIcon
 
         ticker = view.tvTicker
         ticker.isSelected = true
@@ -114,10 +116,12 @@ class HomeFragment : Fragment() {
     private fun updateApiVisibility(show: Boolean){
         if(show){
             apiEntry.setText(viewModel.apiKey)
+            tmdIcon.isVisible = false
             apiLayout.isVisible = true
             getAPIKeyButton.isVisible = true
             viewApiButton.text = "Hide API Key"
         }else{
+            tmdIcon.isVisible = true
             apiLayout.isVisible = false
             getAPIKeyButton.isVisible = false
             viewApiButton.text = "View API Key"

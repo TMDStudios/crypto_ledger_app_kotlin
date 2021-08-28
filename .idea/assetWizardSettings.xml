@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -28,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="clear_icon" />
-                            <entry key="sourceFile" value="C:\Users\ming\AndroidStudioProjects\CryptoLedgerKotlin" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="tmd_icon" />
+                            <entry key="sourceFile" value="C:\Users\apiri\Desktop\tmd_icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
