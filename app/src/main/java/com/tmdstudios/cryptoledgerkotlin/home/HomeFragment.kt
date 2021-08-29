@@ -57,7 +57,10 @@ class HomeFragment : Fragment() {
             }
         })
         viewModel.checkProgressBar().observe(viewLifecycleOwner, Observer {
-                progressBarVisible -> progressBar.isVisible = progressBarVisible
+                progressBarVisible -> run {
+                progressBar.isVisible = progressBarVisible
+                tmdIcon.isVisible = !progressBarVisible
+            }
         })
 
         sharedPreferences = this.requireActivity().getSharedPreferences(
@@ -121,7 +124,7 @@ class HomeFragment : Fragment() {
             getAPIKeyButton.isVisible = true
             viewApiButton.text = "Hide API Key"
         }else{
-            tmdIcon.isVisible = true
+            if(!progressBar.isVisible){tmdIcon.isVisible = true}
             apiLayout.isVisible = false
             getAPIKeyButton.isVisible = false
             viewApiButton.text = "View API Key"
