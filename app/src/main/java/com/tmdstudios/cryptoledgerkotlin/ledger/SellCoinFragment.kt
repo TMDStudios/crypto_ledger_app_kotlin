@@ -16,10 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tmdstudios.cryptoledgerkotlin.R
-import kotlinx.android.synthetic.main.coin.view.*
-import kotlinx.android.synthetic.main.fragment_sell_coin.*
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
-import kotlinx.android.synthetic.main.ledger_coin.view.*
 
 class SellCoinFragment : Fragment() {
 
@@ -91,7 +88,6 @@ class SellCoinFragment : Fragment() {
             } else{
                 view.etSellAmount.text.toString().toFloat()
             }
-//            Log.e("SellCoinFragment", "ISSUE! amt: $coinID, amt: $amount, owned: $owned", )
             if(amount > 0f && amount <= owned){
                 viewModel.sellCoin(coinID, amount)
             }else{

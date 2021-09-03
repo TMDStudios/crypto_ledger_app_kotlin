@@ -1,7 +1,6 @@
 package com.tmdstudios.cryptoledgerkotlin.ledger
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -53,9 +52,6 @@ class LedgerViewModel : ViewModel() {
                 }
                 if(response.isSuccessful && response.body() != null){
                     Log.e("Ledger", "Got the data! ${response.body()}", )
-//                    priceData.postValue(response.body()!!
-//                        .filter { coin -> !coin.merged && !coin.sold }
-//                        .sortedByDescending { coin -> coin.id })
                     if(sortMethod=="0"){
                         priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }

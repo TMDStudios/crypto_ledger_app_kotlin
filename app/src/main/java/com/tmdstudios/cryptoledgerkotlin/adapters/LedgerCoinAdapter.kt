@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.tmdstudios.cryptoledgerkotlin.R
