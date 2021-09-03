@@ -71,7 +71,7 @@ class SellCoinFragment : Fragment() {
         when{
             args.currentLedgerCoin.price_difference > 0.009 -> view.tvSellCoinTrend.setTextColor(Color.argb(255, 34, 139, 34))
             args.currentLedgerCoin.price_difference < -0.009 -> view.tvSellCoinTrend.setTextColor(Color.RED)
-            else -> view.tvSellCoinTrend.setTextColor(Color.BLACK)
+            else -> view.tvSellCoinTrend.text = "0.00 %"
         }
         decimalPointIndex = args.currentLedgerCoin.total_amount.indexOf(".") + 9
         val amtOwned = args.currentLedgerCoin.total_amount.substring(0, decimalPointIndex)
@@ -82,7 +82,7 @@ class SellCoinFragment : Fragment() {
         when{
             args.currentLedgerCoin.total_profit.toFloat() > 0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.argb(255, 34, 139, 34))
             args.currentLedgerCoin.total_profit.toFloat() < -0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.RED)
-            else -> view.tvSellCoinTotalProfit.setTextColor(Color.BLACK)
+            else -> view.tvSellCoinTotalProfit.text = "$ 0.00"
         }
 
         view.btSellCoinSubmit.setOnClickListener {
