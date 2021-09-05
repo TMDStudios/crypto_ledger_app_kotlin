@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvLedgerCoin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/baby_blue"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvBuySellCH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:text="Coin Name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/llTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@id/tvBuySellCH">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Date" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Amount" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@id/llTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+                <TextView
+                    android:id="@+id/tvDateCH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:text="555" />
+                <TextView
+                    android:id="@+id/tvAmountCH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:text="555" />
+                <TextView
+                    android:id="@+id/tvPriceCH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:text="555" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

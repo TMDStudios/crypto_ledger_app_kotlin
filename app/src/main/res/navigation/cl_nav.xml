@@ -45,6 +45,9 @@
         <argument
             android:name="currentLedgerCoin"
             app:argType="com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin" />
+        <action
+            android:id="@+id/action_sellCoinFragment_to_coinHistoryFragment"
+            app:destination="@id/coinHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyCoinFragment"
@@ -57,5 +60,17 @@
         <argument
             android:name="currentCoin"
             app:argType="com.tmdstudios.cryptoledgerkotlin.models.Coin" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinHistoryFragment"
+        android:name="com.tmdstudios.cryptoledgerkotlin.ledger.CoinHistoryFragment"
+        android:label="fragment_coin_history"
+        tools:layout="@layout/fragment_coin_history" >
+        <action
+            android:id="@+id/action_coinHistoryFragment_to_ledgerFragment"
+            app:destination="@id/ledgerFragment" />
+        <action
+            android:id="@+id/action_coinHistoryFragment_to_sellCoinFragment"
+            app:destination="@id/sellCoinFragment" />
     </fragment>
 </navigation>

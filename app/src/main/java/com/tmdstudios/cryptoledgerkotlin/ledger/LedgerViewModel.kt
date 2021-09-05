@@ -64,6 +64,10 @@ class LedgerViewModel : ViewModel() {
                         priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }
                             .sortedByDescending { coin -> coin.name })
+                    }else if(sortMethod=="-1"){
+                        priceData.postValue(response.body()!!
+                            .filter { coin -> coin.name.toUpperCase(Locale.ROOT).contains(sortMethod.toUpperCase(Locale.ROOT)) }
+                            .sortedBy { coin -> coin.name })
                     }else{
                         priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }

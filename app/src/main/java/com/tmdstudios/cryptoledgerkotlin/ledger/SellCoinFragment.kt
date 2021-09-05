@@ -96,6 +96,10 @@ class SellCoinFragment : Fragment() {
             }
         }
 
+        view.btViewHistory.setOnClickListener {
+            findNavController().navigate(R.id.coinHistoryFragment)
+        }
+
         return view
     }
 

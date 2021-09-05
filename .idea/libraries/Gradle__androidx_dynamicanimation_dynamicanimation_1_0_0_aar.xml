@@ -2,9 +2,10 @@
   <library name="Gradle: androidx.dynamicanimation:dynamicanimation:1.0.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2d3164e00843b51845c38c1c2487ca27/dynamicanimation-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5dd3bcc5dcf4c74f6274591df5a348f/dynamicanimation-1.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5dd3bcc5dcf4c74f6274591df5a348f/dynamicanimation-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5dd3bcc5dcf4c74f6274591df5a348f/dynamicanimation-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fdf322dcf9c947f2d18e5b41d2addd67/dynamicanimation-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fdf322dcf9c947f2d18e5b41d2addd67/dynamicanimation-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fdf322dcf9c947f2d18e5b41d2addd67/dynamicanimation-1.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

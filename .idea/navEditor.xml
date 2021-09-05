@@ -29,6 +29,32 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="coinHistoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="876" />
+                            <option name="y" value="266" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_coinHistoryFragment_to_ledgerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_coinHistoryFragment_to_sellCoinFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
@@ -88,8 +114,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="555" />
-                            <option name="y" value="-76" />
+                            <option name="x" value="601" />
+                            <option name="y" value="-166" />
                           </Point>
                         </option>
                         <option name="myPositions">
