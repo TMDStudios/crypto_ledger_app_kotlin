@@ -1,5 +1,6 @@
 package com.tmdstudios.cryptoledgerkotlin.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +28,25 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
         val entry = coinHistory[position]
 
         holder.itemView.apply {
-            tvBuySellCH.text = "Testing buy"
-            tvDateCH.text = entry.date_bought
+            if(!entry.sold){
+                tvBuySellCH.text = "Bought"
+                val dateBought = entry.date_bought.split("T")
+                tvDateCH.text = dateBought[0]
+            }else{
+                tvBuySellCH.text = "Sold"
+                val dateSold = entry.date_sold.split("T")
+                tvDateCH.text = dateSold[0]
+            }
             tvAmountCH.text = entry.amount
             tvPriceCH.text = entry._purchase_price
         }
     }
 
     override fun getItemCount() = coinHistory.size
+
+    fun setData(ledgerCoins: List<LedgerCoin>){
+        this.coinHistory = ledgerCoins
+        Log.e("CoinHistoryAdapter", "SET DATA", )
+        notifyDataSetChanged()
+    }
 }

@@ -1,11 +1,15 @@
 package com.tmdstudios.cryptoledgerkotlin.ledger
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,12 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.adapters.CoinHistoryAdapter
+import kotlinx.android.synthetic.main.coin.view.*
 import kotlinx.android.synthetic.main.fragment_coin_history.view.*
 
 class CoinHistoryFragment : Fragment() {
     private lateinit var viewModel: LedgerViewModel
     private lateinit var progressBar: RelativeLayout
     private lateinit var rvHistoryItems: RecyclerView
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var tvNameCH: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,17 +44,29 @@ class CoinHistoryFragment : Fragment() {
                 progressBarVisible -> progressBar.isVisible = progressBarVisible
         })
 
+        viewModel.getPriceObserver().observe(viewLifecycleOwner, Observer {
+                ledgerCoin -> adapter.setData(ledgerCoin)
+        })
+
         progressBar = view.findViewById(R.id.rlLoadingCoinHistory)
 
         rvHistoryItems = view.rvCoinHistory
 
-        viewModel.sortMethod = "-1"
+        sharedPreferences = this.requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
 
-
-
-        viewModel.makeApiCall()
+        tvNameCH = view.tvNameCH
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.sortMethod = "-1"
+        viewModel.coinHistoryId = sharedPreferences.getString("coinHistoryId", "").toString()
+        tvNameCH.text = viewModel.coinHistoryId
+        viewModel.makeApiCall()
     }
 
 }

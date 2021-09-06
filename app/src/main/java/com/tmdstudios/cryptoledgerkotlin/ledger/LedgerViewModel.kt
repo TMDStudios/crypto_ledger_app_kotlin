@@ -20,6 +20,7 @@ class LedgerViewModel : ViewModel() {
     var sortMethod = "0"
     var showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
     var coinSold: MutableLiveData<Boolean> = MutableLiveData()
+    var coinHistoryId = ""
 
     init {
         makeApiCall()
@@ -65,9 +66,11 @@ class LedgerViewModel : ViewModel() {
                             .filter { coin -> !coin.merged && !coin.sold }
                             .sortedByDescending { coin -> coin.name })
                     }else if(sortMethod=="-1"){
+                        Log.e("VIEW MODEL", "coinHistoryName = $coinHistoryId", )
+
                         priceData.postValue(response.body()!!
-                            .filter { coin -> coin.name.toUpperCase(Locale.ROOT).contains(sortMethod.toUpperCase(Locale.ROOT)) }
-                            .sortedBy { coin -> coin.name })
+                            .filter { coin -> coin.name.contains(coinHistoryId) }
+                            .sortedByDescending { coin -> coin.id })
                     }else{
                         priceData.postValue(response.body()!!
                             .filter { coin -> !coin.merged && !coin.sold }
