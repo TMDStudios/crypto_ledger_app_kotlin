@@ -1,5 +1,6 @@
 package com.tmdstudios.cryptoledgerkotlin.adapters
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,23 +29,49 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
         val entry = coinHistory[position]
 
         holder.itemView.apply {
-            if(!entry.sold){
-                tvBuySellCH.text = "Bought"
-                val dateBought = entry.date_bought.split("T")
-                tvDateCH.text = dateBought[0]
+            var decimalPointIndex: Int
+            if(entry.sold){
+                val amt = entry.sell_amount
+                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                val price = entry.sell_price.substring(0, decimalPointIndex)
+                val profit = entry.total_profit.substring(0, decimalPointIndex)
+                tvStatusCH.text = "Sold $amt at \$$price"
+                tvProfitCH.text = "Profit: \$$profit"
+                if(profit.startsWith("-")){
+                    tvProfitCH.setTextColor(Color.RED)
+                }else{
+                    tvProfitCH.setTextColor(Color.GREEN)
+                }
+            }else if(entry.merged){
+                val amt = entry.amount
+                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                val price = entry._purchase_price.substring(0, decimalPointIndex)
+                tvStatusCH.text = "Coin Merged"
+                tvProfitCH.text = "Original Purchase $amt at $price"
             }else{
-                tvBuySellCH.text = "Sold"
-                val dateSold = entry.date_sold.split("T")
-                tvDateCH.text = dateSold[0]
+                val amt = entry.total_amount
+                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                val priceDiff = entry.price_difference.toString().substring(0, decimalPointIndex)
+                tvStatusCH.text = "Total Amount: $amt"
+                tvProfitCH.text = "Trend: $priceDiff %"
+                if(priceDiff.startsWith("-")){
+                    tvProfitCH.setTextColor(Color.RED)
+                }else{
+                    tvProfitCH.setTextColor(Color.GREEN)
+                }
             }
-            tvAmountCH.text = entry.amount
-            tvPriceCH.text = entry._purchase_price
         }
     }
 
     override fun getItemCount() = coinHistory.size
 
     fun setData(ledgerCoins: List<LedgerCoin>){
+//        val filteredCoins = mutableListOf<LedgerCoin>()
+//        for(coin in ledgerCoins){
+//            if(!coin.merged && coin.sell_price!="null"){
+//                filteredCoins.add(coin)
+//            }
+//        }
         this.coinHistory = ledgerCoins
         Log.e("CoinHistoryAdapter", "SET DATA", )
         notifyDataSetChanged()
