@@ -67,12 +67,6 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
     override fun getItemCount() = coinHistory.size
 
     fun setData(ledgerCoins: List<LedgerCoin>){
-//        val filteredCoins = mutableListOf<LedgerCoin>()
-//        for(coin in ledgerCoins){
-//            if(!coin.merged && coin.sell_price!="null"){
-//                filteredCoins.add(coin)
-//            }
-//        }
         this.coinHistory = ledgerCoins
         Log.e("CoinHistoryAdapter", "SET DATA", )
         notifyDataSetChanged()

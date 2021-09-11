@@ -13,8 +13,11 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.adapters.CoinHistoryAdapter
 import kotlinx.android.synthetic.main.coin.view.*
@@ -26,6 +29,7 @@ class CoinHistoryFragment : Fragment() {
     private lateinit var rvHistoryItems: RecyclerView
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var tvNameCH: TextView
+    private lateinit var fabBackCH: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +61,11 @@ class CoinHistoryFragment : Fragment() {
         viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
 
         tvNameCH = view.tvNameCH
+
+        fabBackCH = view.fabBackCH
+        fabBackCH.setOnClickListener {
+            findNavController().navigate(R.id.action_coinHistoryFragment_to_ledgerFragment)
+        }
 
         return view
     }
