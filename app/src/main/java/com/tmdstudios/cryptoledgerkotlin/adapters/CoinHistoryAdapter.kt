@@ -32,32 +32,33 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
             var decimalPointIndex: Int
             if(entry.sold){
                 val amt = entry.sell_amount
-                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                decimalPointIndex = entry.sell_price.indexOf(".") + 3
                 val price = entry.sell_price.substring(0, decimalPointIndex)
+                decimalPointIndex = entry.total_profit.indexOf(".") + 3
                 val profit = entry.total_profit.substring(0, decimalPointIndex)
                 tvStatusCH.text = "Sold $amt at \$$price"
                 tvProfitCH.text = "Profit: \$$profit"
                 if(profit.startsWith("-")){
                     tvProfitCH.setTextColor(Color.RED)
                 }else{
-                    tvProfitCH.setTextColor(Color.GREEN)
+                    tvProfitCH.setTextColor(Color.rgb(0, 180, 0))
                 }
             }else if(entry.merged){
                 val amt = entry.amount
-                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                decimalPointIndex = entry._purchase_price.indexOf(".") + 3
                 val price = entry._purchase_price.substring(0, decimalPointIndex)
                 tvStatusCH.text = "Coin Merged"
-                tvProfitCH.text = "Original Purchase $amt at $price"
+                tvProfitCH.text = "Last Purchase: $amt at $price"
             }else{
                 val amt = entry.total_amount
-                decimalPointIndex = entry.total_amount.indexOf(".") + 2
+                decimalPointIndex = entry.price_difference.toString().indexOf(".") + 5
                 val priceDiff = entry.price_difference.toString().substring(0, decimalPointIndex)
                 tvStatusCH.text = "Total Amount: $amt"
                 tvProfitCH.text = "Trend: $priceDiff %"
                 if(priceDiff.startsWith("-")){
                     tvProfitCH.setTextColor(Color.RED)
                 }else{
-                    tvProfitCH.setTextColor(Color.GREEN)
+                    tvProfitCH.setTextColor(Color.rgb(0, 180, 0))
                 }
             }
         }
