@@ -103,6 +103,11 @@ class HomeFragment : Fragment() {
 
         progressBar = view.rlLoadingMain
         tmdIcon = view.ivTmdIcon
+        tmdIcon.setOnClickListener {
+            val uri = Uri.parse("https://tmdstudios.wordpress.com/")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
 
         ticker = view.tvTicker
         ticker.isSelected = true
