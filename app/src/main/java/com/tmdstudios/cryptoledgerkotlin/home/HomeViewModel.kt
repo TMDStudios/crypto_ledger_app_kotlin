@@ -78,7 +78,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun updateTicker(){
+    private fun updateTicker(){
         CoroutineScope(Dispatchers.IO).launch {
             val response = try {
                 RetrofitInstance.api.getPrices()

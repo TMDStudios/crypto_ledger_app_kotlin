@@ -48,7 +48,7 @@
         android:orientation="horizontal"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:paddingBottom="48dp"
+        android:layout_marginBottom="48dp"
         android:layout_gravity="center">
 
         <EditText
@@ -82,7 +82,7 @@
             android:id="@+id/btSeeAPI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="2dp"
             android:text="Hide API Key" />
 
         <Button
