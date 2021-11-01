@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -32,7 +33,9 @@ class HomeFragment : Fragment() {
     private lateinit var progressBar: RelativeLayout
     private lateinit var ticker: TextView
     private lateinit var getAPIKeyButton: Button
-    private lateinit var tmdIcon: ImageView
+    private lateinit var cvIcon: CardView
+    private lateinit var cvGit: CardView
+    private lateinit var tvMoreFromTMD: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +62,7 @@ class HomeFragment : Fragment() {
         viewModel.checkProgressBar().observe(viewLifecycleOwner, Observer {
                 progressBarVisible -> run {
                 progressBar.isVisible = progressBarVisible
-                tmdIcon.isVisible = !progressBarVisible
+                if(!viewModel.showApiKey && !progressBarVisible){cvIcon.isVisible = !progressBarVisible}
             }
         })
 
@@ -102,9 +105,23 @@ class HomeFragment : Fragment() {
         }
 
         progressBar = view.rlLoadingMain
-        tmdIcon = view.ivTmdIcon
-        tmdIcon.setOnClickListener {
-            val uri = Uri.parse("https://tmdstudios.wordpress.com/")
+        cvIcon = view.cvTmdIcon
+        cvIcon.setOnClickListener {
+            val uri = Uri.parse("https://tmdstudios.wordpress.com/earn-crypto")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+
+        tvMoreFromTMD = view.tvMoreFromTMD
+        tvMoreFromTMD.setOnClickListener {
+            val uri = Uri.parse("https://tmdstudios.wordpress.com")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+
+        cvGit = view.cvGit
+        cvGit.setOnClickListener {
+            val uri = Uri.parse("https://github.com/TMDStudios/crypto_ledger_app_kotlin")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
@@ -124,12 +141,12 @@ class HomeFragment : Fragment() {
     private fun updateApiVisibility(show: Boolean){
         if(show){
             apiEntry.setText(viewModel.apiKey)
-            tmdIcon.isVisible = false
+            cvIcon.isVisible = false
             apiLayout.isVisible = true
             getAPIKeyButton.isVisible = true
             viewApiButton.text = "Hide API Key"
         }else{
-            if(!progressBar.isVisible){tmdIcon.isVisible = true}
+            cvIcon.isVisible = true
             apiLayout.isVisible = false
             getAPIKeyButton.isVisible = false
             viewApiButton.text = "View API Key"

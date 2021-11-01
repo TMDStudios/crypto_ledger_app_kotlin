@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home.HomeFragment">
 
     <LinearLayout
@@ -29,13 +30,14 @@
             android:text="" />
 
         <TextView
+            android:id="@+id/tvMoreFromTMD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:padding="2dp"
             android:textAlignment="center"
-            android:text="Crypto Ledger"/>
+            android:text="More From TMD Studios"/>
 
     </LinearLayout>
 
@@ -74,7 +76,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:paddingBottom="32dp">
+        android:paddingBottom="16dp">
 
         <Button
             android:id="@+id/btSeeAPI"
@@ -87,17 +89,76 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btGetAPIKey"
+            android:layout_marginBottom="8dp"
             android:text="Get API Key"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            app:cardCornerRadius="4dp"
+            android:id="@+id/cvGit">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:padding="2dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/github"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="SOURCE CODE"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/tmd_icon"
+        app:cardBackgroundColor="@color/ic_launcher_background"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:id="@+id/ivTmdIcon"/>
+        app:cardCornerRadius="8dp"
+        android:layout_margin="8dp"
+        android:id="@+id/cvTmdIcon">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cl_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EARN CRYPTO"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:background="@color/blue"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="-24dp"
+                android:layout_marginBottom="12dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:id="@+id/rlLoadingMain"
