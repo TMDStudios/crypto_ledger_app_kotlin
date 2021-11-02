@@ -3,6 +3,8 @@ The Crypto Ledger App is an extension of the Crypto Ledger website. It makes use
 
 Buying and selling coins requires an API Key, while getting live price data does not.
 
+Crypto Ledger is available on Google Play: https://play.google.com/store/apps/details?id=com.tmdstudios.cryptoledgerkotlin
+
 You can see the website here: http://crypto-ledger.herokuapp.com/
 
 The website repository is available here: https://github.com/TMDStudios/crypto_ledger
