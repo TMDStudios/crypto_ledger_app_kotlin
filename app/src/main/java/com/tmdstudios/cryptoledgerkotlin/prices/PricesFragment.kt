@@ -11,6 +11,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -48,6 +50,8 @@ class PricesFragment : Fragment() {
     private lateinit var clBottom: ConstraintLayout
 
     private var clicked = false
+
+    private lateinit var webView: WebView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,6 +106,12 @@ class PricesFragment : Fragment() {
                 else -> false
             }
         }
+
+        webView = view.findViewById(R.id.webViewPrices)
+        webView.webViewClient = WebViewClient()
+        webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.loadUrl("https://crypto-ledger.herokuapp.com/api/docs/")
 
         return view
     }

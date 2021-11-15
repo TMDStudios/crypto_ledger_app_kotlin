@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -36,6 +38,8 @@ class HomeFragment : Fragment() {
     private lateinit var cvIcon: CardView
     private lateinit var cvGit: CardView
     private lateinit var tvMoreFromTMD: TextView
+
+    private lateinit var webView: WebView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,6 +138,12 @@ class HomeFragment : Fragment() {
             viewModel.showApiKey = false
             updateApiVisibility(viewModel.showApiKey)
         }
+
+        webView = view.findViewById(R.id.webViewHome)
+        webView.webViewClient = WebViewClient()
+        webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.loadUrl("https://crypto-ledger.herokuapp.com/api/docs/")
 
         return view
     }
