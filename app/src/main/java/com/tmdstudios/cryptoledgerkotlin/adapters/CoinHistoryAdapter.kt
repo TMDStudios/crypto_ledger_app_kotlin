@@ -31,11 +31,11 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
         holder.itemView.apply {
             var decimalPointIndex: Int
             if(entry.sold){
-                val amt = entry.sell_amount
-                decimalPointIndex = entry.sell_price.indexOf(".") + 3
-                val price = entry.sell_price.substring(0, decimalPointIndex)
-                decimalPointIndex = entry.total_profit.indexOf(".") + 3
-                val profit = entry.total_profit.substring(0, decimalPointIndex)
+                val amt = entry.sellAmount
+                decimalPointIndex = entry.sellPrice.toString().indexOf(".") + 3
+                val price = entry.sellPrice.toString().substring(0, decimalPointIndex)
+                decimalPointIndex = entry.totalProfit.toString().indexOf(".") + 3
+                val profit = entry.totalProfit.toString().substring(0, decimalPointIndex)
                 tvStatusCH.text = "Sold $amt at \$$price"
                 tvProfitCH.text = "Profit: \$$profit"
                 if(profit.startsWith("-")){
@@ -45,14 +45,14 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
                 }
             }else if(entry.merged){
                 val amt = entry.amount
-                decimalPointIndex = entry._purchase_price.indexOf(".") + 3
-                val price = entry._purchase_price.substring(0, decimalPointIndex)
+                decimalPointIndex = entry.purchasePrice.toString().indexOf(".") + 3
+                val price = entry.purchasePrice.toString().substring(0, decimalPointIndex)
                 tvStatusCH.text = "Coin Merged"
                 tvProfitCH.text = "Last Purchase: $amt at $price"
             }else{
-                val amt = entry.total_amount
-                decimalPointIndex = entry.price_difference.toString().indexOf(".") + 5
-                val priceDiff = entry.price_difference.toString().substring(0, decimalPointIndex)
+                val amt = entry.totalAmount
+                decimalPointIndex = entry.priceDifference.toString().indexOf(".") + 5
+                val priceDiff = entry.priceDifference.toString().substring(0, decimalPointIndex)
                 tvStatusCH.text = "Total Amount: $amt"
                 tvProfitCH.text = "Trend: $priceDiff %"
                 if(priceDiff.startsWith("-")){

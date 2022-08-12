@@ -18,6 +18,7 @@ import com.tmdstudios.cryptoledgerkotlin.R
 import kotlinx.android.synthetic.main.coin.view.*
 import kotlinx.android.synthetic.main.fragment_buy_coin.view.*
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
+import java.lang.Exception
 
 class BuyCoinFragment : Fragment() {
 
@@ -45,12 +46,21 @@ class BuyCoinFragment : Fragment() {
         }
 
         val coinName = args.currentCoin.name + " (" + args.currentCoin.symbol + ")"
+        val coinSymbol = args.currentCoin.symbol
         view.tvBuyCoinName.text = coinName
         var decimalPointIndex = args.currentCoin.price.indexOf(".") + 5
-        val price = "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
+        val price = try{
+            "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentCoin.price
+        }
         view.tvBuyCoinPrice.text = price
         decimalPointIndex = args.currentCoin.price_1h.toString().indexOf(".") + 5
-        val price1h = args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        val price1h = try{
+            args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: Exception){
+            args.currentCoin.price_1h.toString()
+        }
         view.tvBuyCoinPrice1h.text = price1h
         when {
             args.currentCoin.price_1h<0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.RED)}
@@ -58,7 +68,11 @@ class BuyCoinFragment : Fragment() {
             else -> {view.tvBuyCoinPrice1h.setTextColor(Color.argb(255, 48, 48, 48))}
         }
         decimalPointIndex = args.currentCoin.price_24h.toString().indexOf(".") + 5
-        val price24h = args.currentCoin.price_24h.toString().substring(0, decimalPointIndex) + " %"
+        val price24h = try{
+            args.currentCoin.price_24h.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: Exception){
+            args.currentCoin.price_24h.toString()
+        }
         view.tvBuyCoinPrice24h.text = price24h
         when {
             args.currentCoin.price_24h<0 -> {view.tvBuyCoinPrice24h.setTextColor(Color.RED)}
@@ -73,7 +87,7 @@ class BuyCoinFragment : Fragment() {
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
                     val amt = view.etBuyAmount.text.toString().toFloat()
                     val customPrice = view.etBuyCustomPrice.text.toString().toFloat()
-                    viewModel.buyCoin(coinName, amt, customPrice)
+                    viewModel.buyCoin(coinName, coinSymbol, amt, customPrice)
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
                     imm?.hideSoftInputFromWindow(view.windowToken, 0)
@@ -87,7 +101,7 @@ class BuyCoinFragment : Fragment() {
             }else{
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
                     val amt = view.etBuyAmount.text.toString().toFloat()
-                    viewModel.buyCoin(coinName, amt, 0f)
+                    viewModel.buyCoin(coinName, coinSymbol, amt, 0f)
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
                     imm?.hideSoftInputFromWindow(view.windowToken, 0)

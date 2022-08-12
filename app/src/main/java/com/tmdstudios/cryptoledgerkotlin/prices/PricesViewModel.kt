@@ -66,11 +66,11 @@ class PricesViewModel : ViewModel() {
         }
     }
 
-    fun buyCoin(name: String, amount: Float, custom_price: Float){
+    fun buyCoin(name: String, symbol: String, amount: Float, custom_price: Float){
         if(apiKey.isNotEmpty()){
             viewModelScope.launch(Dispatchers.IO) {
                 val response = try {
-                    RetrofitInstance.api.buyCoin(apiKey, BuyCoin(name, amount, custom_price))
+                    RetrofitInstance.api.buyCoin(apiKey, BuyCoin(name, symbol, amount.toDouble(), custom_price.toDouble()))
                 }catch (e: IOException){
                     Log.e("ViewPrices", "IOException, you might not be connected to the internet", )
                     return@launch
@@ -78,6 +78,7 @@ class PricesViewModel : ViewModel() {
                     Log.e("ViewPrices", "HTTPException, unexpected response", )
                     return@launch
                 }
+
                 if(response.isSuccessful && response.body() != null){
                     Log.e("ViewPrices", "Coin BOUGHT!", )
                 }else{

@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tmdstudios.cryptoledgerkotlin.R
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
+import java.lang.Exception
 
 class SellCoinFragment : Fragment() {
 
@@ -54,32 +55,52 @@ class SellCoinFragment : Fragment() {
         viewModel.apiKey = sharedPreferences.getString("APIKey", "").toString()
 
         val coinID = args.currentLedgerCoin.id
-        val owned = args.currentLedgerCoin.total_amount.toFloat()
+        val owned = args.currentLedgerCoin.totalAmount.toFloat()
 
         view.tvSellCoinName.text = args.currentLedgerCoin.name
-        var decimalPointIndex = args.currentLedgerCoin.current_price.indexOf(".") + 3
-        val currentPrice = "$ " + args.currentLedgerCoin.current_price.substring(0, decimalPointIndex)
+        var decimalPointIndex = args.currentLedgerCoin.currentPrice.toString().indexOf(".") + 3
+        val currentPrice = try{
+            "$ " + args.currentLedgerCoin.currentPrice.toString().substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin.currentPrice.toString()
+        }
         view.tvSellCoinPrice.text = currentPrice
-        decimalPointIndex = args.currentLedgerCoin._purchase_price.indexOf(".") + 3
-        val purchasePrice = "$ " + args.currentLedgerCoin._purchase_price.substring(0, decimalPointIndex)
+        decimalPointIndex = args.currentLedgerCoin.purchasePrice.toString().indexOf(".") + 3
+        val purchasePrice = try{
+            "$ " + args.currentLedgerCoin.purchasePrice.toString().substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin.purchasePrice.toString()
+        }
         view.tvSellCoinPurchasePrice.text = purchasePrice
-        decimalPointIndex = args.currentLedgerCoin.price_difference.toString().indexOf(".") + 3
-        val trend = args.currentLedgerCoin.price_difference.toString().substring(0, decimalPointIndex) + " %"
+        decimalPointIndex = args.currentLedgerCoin.priceDifference.toString().indexOf(".") + 3
+        val trend = try{
+            args.currentLedgerCoin.priceDifference.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: Exception){
+            args.currentLedgerCoin.priceDifference.toString().substring(0, decimalPointIndex) + " %"
+        }
         view.tvSellCoinTrend.text = trend
         when{
-            args.currentLedgerCoin.price_difference > 0.009 -> view.tvSellCoinTrend.setTextColor(Color.argb(255, 34, 139, 34))
-            args.currentLedgerCoin.price_difference < -0.009 -> view.tvSellCoinTrend.setTextColor(Color.RED)
+            args.currentLedgerCoin.priceDifference > 0.009 -> view.tvSellCoinTrend.setTextColor(Color.argb(255, 34, 139, 34))
+            args.currentLedgerCoin.priceDifference < -0.009 -> view.tvSellCoinTrend.setTextColor(Color.RED)
             else -> view.tvSellCoinTrend.text = "0.00 %"
         }
-        decimalPointIndex = args.currentLedgerCoin.total_amount.indexOf(".") + 9
-        val amtOwned = args.currentLedgerCoin.total_amount.substring(0, decimalPointIndex)
+        decimalPointIndex = args.currentLedgerCoin.totalAmount.toString().indexOf(".") + 9
+        val amtOwned = try{
+            args.currentLedgerCoin.totalAmount.toString().substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            args.currentLedgerCoin.totalAmount.toString()
+        }
         view.tvSellCoinAmountOwned.text = amtOwned
-        decimalPointIndex = args.currentLedgerCoin.total_profit.indexOf(".") + 3
-        val totalProfit = "$ " + args.currentLedgerCoin.total_profit.substring(0, decimalPointIndex)
+        decimalPointIndex = args.currentLedgerCoin.totalProfit.toString().indexOf(".") + 3
+        val totalProfit = try{
+            "$ " + args.currentLedgerCoin.totalProfit.toString().substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin.totalProfit.toString()
+        }
         view.tvSellCoinTotalProfit.text = totalProfit
         when{
-            args.currentLedgerCoin.total_profit.toFloat() > 0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.argb(255, 34, 139, 34))
-            args.currentLedgerCoin.total_profit.toFloat() < -0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.RED)
+            args.currentLedgerCoin.totalProfit.toFloat() > 0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.argb(255, 34, 139, 34))
+            args.currentLedgerCoin.totalProfit.toFloat() < -0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.RED)
             else -> view.tvSellCoinTotalProfit.text = "$ 0.00"
         }
 

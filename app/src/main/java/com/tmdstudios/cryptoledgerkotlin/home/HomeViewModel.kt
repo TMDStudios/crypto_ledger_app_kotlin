@@ -40,7 +40,7 @@ class HomeViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val msg: String = async {
                 try {
-                    RetrofitInstance.api.getLedger(apiKey).message()
+                    RetrofitInstance.api.getLedger(apiKey).code().toString()
                 } catch (e: IOException){
                     e.toString()
                 } catch (e: HttpException) {
@@ -51,7 +51,8 @@ class HomeViewModel : ViewModel() {
             }.await()
             withContext(Dispatchers.Main){
                 apiChecked = true
-                if(msg=="OK"){
+                println("MSG: $msg")
+                if(msg=="200"){
                     validAPI.postValue(true)
                     showApiKey = false
                     with(sharedPreferences.edit()) {
