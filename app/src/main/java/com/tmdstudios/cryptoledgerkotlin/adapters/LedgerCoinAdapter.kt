@@ -34,7 +34,11 @@ class LedgerCoinAdapter: RecyclerView.Adapter<LedgerCoinAdapter.LedgerCoinViewHo
             val totalAmount = "Total Amount: " + ledgerCoin.totalAmount.toString()
             tvLedgerCoinAmount.text = totalAmount
             var decimalPointIndex = ledgerCoin.purchasePrice.toString().indexOf(".") + 3
-            val purchasePrice = "$" + ledgerCoin.purchasePrice.toString().substring(0, decimalPointIndex)
+            val purchasePrice = try{
+                "$" + ledgerCoin.purchasePrice.toString().substring(0, decimalPointIndex)
+            }catch(e: Exception){
+                "$" + ledgerCoin.purchasePrice.toString()
+            }
             tvLedgerCoinPurchasePrice.text = purchasePrice
             decimalPointIndex = ledgerCoin.currentPrice.toString().indexOf(".") + 3
             val currentPrice = try{

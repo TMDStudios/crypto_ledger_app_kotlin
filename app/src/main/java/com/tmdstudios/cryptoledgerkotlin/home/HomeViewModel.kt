@@ -95,7 +95,7 @@ class HomeViewModel : ViewModel() {
                     val decimalPoint = i.price.indexOf(".")
                     var coin = " ${i.symbol} "
                     var price = "\$${i.price.substring(0, decimalPoint + 3)} "
-                    if(i.price_1h < 0){
+                    if(i.priceChangePercentage1d < 0){
                         coin = colorFilter(coin, price, "#FF0000")
                     }else{
                         coin = colorFilter(coin, price, "#7fff00")

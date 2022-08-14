@@ -6,10 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
 import com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin
-import com.tmdstudios.cryptoledgerkotlin.models.SellCoin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
@@ -41,6 +42,7 @@ class LedgerViewModel : ViewModel() {
     fun makeApiCall(){
         viewModelScope.launch(Dispatchers.IO) {
             showProgressBar.postValue(true)
+            Log.e("Ledger", "key $apiKey", )
             if(apiKey.isNotEmpty()){
                 val response = try {
                     RetrofitInstance.api.getLedger(apiKey)
@@ -89,24 +91,23 @@ class LedgerViewModel : ViewModel() {
         }
     }
 
-    fun sellCoin(coinID: Int, amt: Float){
+    fun sellCoin(coinID: Int, amt: Double){
         viewModelScope.launch(Dispatchers.IO) {
-            val response = try {
-                RetrofitInstance.api.sellCoin(apiKey, SellCoin(coinID, amt))
-            }catch (e: IOException){
-                Log.e("SellCoin", "IOException, you might not be connected to the internet", )
-                return@launch
-            }catch (e: HttpException){
-                Log.e("SellCoin", "HTTPException, unexpected response", )
-                return@launch
-            }
-            if(response.isSuccessful && response.body() != null){
-                Log.e("SellCoin", "Coin SOLD", )
-                coinSold.postValue(true)
-                makeApiCall()
-            }else{
-                Log.e("SellCoin", "ISSUE! id: $coinID, amt: $amt, response: $response", )
-            }
+            val client = OkHttpClient().newBuilder()
+                .build()
+            val mediaType: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
+            val body: RequestBody = RequestBody.create(
+                mediaType,
+                "id=$coinID&amount=$amt"
+            )
+            val request: Request = Request.Builder()
+                .url("https://crypto-ledger.herokuapp.com/api/sell/$apiKey")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader("Cookie", "JSESSIONID=376B885635F4795460A6BD770D4C02D4")
+                .build()
+            val response: Response = client.newCall(request).execute()
+            Log.e("ViewPrices", "Response: $response")
         }
     }
 }

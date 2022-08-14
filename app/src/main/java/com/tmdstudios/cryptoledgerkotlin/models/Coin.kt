@@ -5,12 +5,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Coin(
-    val id: Int,
     val name: String,
+    val symbol: String,
+    val logo: String,
     val price: String,
-    val price_1h: Double,
-    val price_24h: Double,
-    val price_btc: String,
-    val price_eth: String,
-    val symbol: String
+    val coinRank: Double,
+    val priceChangePercentage1d: Double,
+    val priceChangePercentage7d: Double,
+    val priceChangePercentage30d: Double
 ): Parcelable

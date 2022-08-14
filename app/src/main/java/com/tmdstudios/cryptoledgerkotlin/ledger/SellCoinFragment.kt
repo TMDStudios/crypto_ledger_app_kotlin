@@ -76,7 +76,7 @@ class SellCoinFragment : Fragment() {
         val trend = try{
             args.currentLedgerCoin.priceDifference.toString().substring(0, decimalPointIndex) + " %"
         }catch(e: Exception){
-            args.currentLedgerCoin.priceDifference.toString().substring(0, decimalPointIndex) + " %"
+            args.currentLedgerCoin.priceDifference.toString() + " %"
         }
         view.tvSellCoinTrend.text = trend
         when{
@@ -106,12 +106,12 @@ class SellCoinFragment : Fragment() {
 
         view.btSellCoinSubmit.setOnClickListener {
             val amount = if (view.etSellAmount.text.toString().isEmpty()){
-                0f
+                0.0
             } else{
-                view.etSellAmount.text.toString().toFloat()
+                view.etSellAmount.text.toString().toDouble()
             }
-            if(amount > 0f && amount <= owned){
-                viewModel.sellCoin(coinID, amount)
+            if(amount > 0.0 && amount <= owned){
+                viewModel.sellCoin(coinID, amount.toDouble())
             }else{
                 view.etSellAmount.setText("0")
                 Toast.makeText(requireContext(), "Invalid Amount", Toast.LENGTH_LONG).show()
