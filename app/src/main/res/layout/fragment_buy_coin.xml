@@ -64,13 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Coin Price 1h: "/>
+                android:text="Coin Price 1d: "/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/tvBuyCoinPrice1h"
+                android:id="@+id/tvBuyCoinPrice1d"
                 android:text="Placeholder"/>
 
         </LinearLayout>
@@ -85,13 +85,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Coin Price 24h: "/>
+                android:text="Coin Price 7d: "/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/tvBuyCoinPrice24h"
+                android:id="@+id/tvBuyCoinPrice7d"
                 android:text="Placeholder"/>
 
         </LinearLayout>
@@ -106,37 +106,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Coin Price BTC: "/>
+                android:text="Coin Price 30d: "/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/tvBuyCoinPriceBTC"
+                android:id="@+id/tvBuyCoinPrice30d"
                 android:text="Placeholder"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Coin Price ETH: "/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/tvBuyCoinPriceETH"
-                android:text="Placeholder"/>
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
