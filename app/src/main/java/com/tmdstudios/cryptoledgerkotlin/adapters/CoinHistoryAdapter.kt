@@ -35,7 +35,7 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
                 decimalPointIndex = entry.sellPrice.toString().indexOf(".") + 3
                 val price = entry.sellPrice.toString().substring(0, decimalPointIndex)
                 decimalPointIndex = entry.totalProfit.toString().indexOf(".") + 3
-                val profit = entry.totalProfit.toString().substring(0, decimalPointIndex)
+                val profit = entry.gain.toString().substring(0, decimalPointIndex)
                 tvStatusCH.text = "Sold $amt at \$$price"
                 tvProfitCH.text = "Profit: \$$profit"
                 if(profit.startsWith("-")){
