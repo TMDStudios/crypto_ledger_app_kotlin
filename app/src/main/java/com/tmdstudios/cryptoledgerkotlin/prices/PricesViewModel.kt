@@ -79,7 +79,7 @@ class PricesViewModel : ViewModel() {
                     "name=$name&symbol=$symbol&amount=$amount&purchasePrice=$purchasePrice"
                 )
                 val request: Request = Request.Builder()
-                    .url("https://crypto-ledger.herokuapp.com/api/buy/$apiKey")
+                    .url("https://cls-prod-cls-z2mvyu.mo1.mogenius.io/api/buy/$apiKey")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .addHeader("Cookie", "JSESSIONID=376B885635F4795460A6BD770D4C02D4")

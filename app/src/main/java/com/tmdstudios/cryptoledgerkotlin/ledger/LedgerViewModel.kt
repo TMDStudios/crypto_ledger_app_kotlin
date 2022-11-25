@@ -101,7 +101,7 @@ class LedgerViewModel : ViewModel() {
                 "id=$coinID&amount=$amt"
             )
             val request: Request = Request.Builder()
-                .url("https://crypto-ledger.herokuapp.com/api/sell/$apiKey")
+                .url("https://cls-prod-cls-z2mvyu.mo1.mogenius.io/api/sell/$apiKey")
                 .method("POST", body)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addHeader("Cookie", "JSESSIONID=376B885635F4795460A6BD770D4C02D4")

@@ -7,7 +7,7 @@ object RetrofitInstance {
 
     val api: API by lazy {
         Retrofit.Builder()
-            .baseUrl("https://crypto-ledger.herokuapp.com")
+            .baseUrl("https://cls-prod-cls-z2mvyu.mo1.mogenius.io")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(API::class.java)
