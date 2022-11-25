@@ -12,7 +12,7 @@ Crypto Ledger is available on Google Play: https://play.google.com/store/apps/de
 
 You can see the website here: http://crypto-ledger.herokuapp.com/
 
-The website repository is available here: https://github.com/TMDStudios/crypto_ledger
+The website repository is available here: https://github.com/TMDStudios/crypto_ledger_spring
 
 You can also read more about the project on Publish0x: https://www.publish0x.com/open-source-projects?a=oQeZVWD6ep&tid=GitHub
 
@@ -29,7 +29,7 @@ You can also read more about the project on Publish0x: https://www.publish0x.com
 
 ## Related
 
-[Crypto Ledger Spring](https://github.com/TMDStudios/crypto_ledger_spring 'Crypto Ledger Spring') - Spring Boot version of Crypto Ledger
+[Crypto Ledger (Python/Django)](https://github.com/TMDStudios/crypto_ledger 'Crypto Ledger (Python/Django)') - Original version of Crypto Ledger
 
 
 ## You may also like...
