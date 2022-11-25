@@ -10,7 +10,7 @@ Buying and selling coins requires an API Key, while getting live price data does
 
 Crypto Ledger is available on Google Play: https://play.google.com/store/apps/details?id=com.tmdstudios.cryptoledgerkotlin
 
-You can see the website here: http://crypto-ledger.herokuapp.com/
+You can see the website here: https://tinyurl.com/crypto-ledger
 
 The website repository is available here: https://github.com/TMDStudios/crypto_ledger_spring
 
