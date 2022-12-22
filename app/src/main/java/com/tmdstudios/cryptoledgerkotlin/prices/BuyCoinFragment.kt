@@ -50,7 +50,11 @@ class BuyCoinFragment : Fragment() {
         val price = "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
         view.tvBuyCoinPrice.text = price
         decimalPointIndex = args.currentCoin.price_1h.toString().indexOf(".") + 5
-        val price1h = args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        val price1h = try{
+            args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: StringIndexOutOfBoundsException){
+            "0 %"
+        }
         view.tvBuyCoinPrice1h.text = price1h
         when {
             args.currentCoin.price_1h<0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.RED)}
@@ -72,7 +76,7 @@ class BuyCoinFragment : Fragment() {
             if(view.etBuyCustomPrice.text.toString().isNotEmpty()){
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
                     val amt = view.etBuyAmount.text.toString().toFloat()
-                    val customPrice = view.etBuyCustomPrice.text.toString().toFloat()
+                    val customPrice = view.etBuyCustomPrice.text.toString()
                     viewModel.buyCoin(coinName, amt, customPrice)
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
@@ -87,7 +91,7 @@ class BuyCoinFragment : Fragment() {
             }else{
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
                     val amt = view.etBuyAmount.text.toString().toFloat()
-                    viewModel.buyCoin(coinName, amt, 0f)
+                    viewModel.buyCoin(coinName, amt, "0")
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
                     imm?.hideSoftInputFromWindow(view.windowToken, 0)

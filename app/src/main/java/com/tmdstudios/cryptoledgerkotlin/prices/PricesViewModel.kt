@@ -66,7 +66,7 @@ class PricesViewModel : ViewModel() {
         }
     }
 
-    fun buyCoin(name: String, amount: Float, custom_price: Float){
+    fun buyCoin(name: String, amount: Float, custom_price: String){
         if(apiKey.isNotEmpty()){
             viewModelScope.launch(Dispatchers.IO) {
                 val response = try {
@@ -78,7 +78,7 @@ class PricesViewModel : ViewModel() {
                     Log.e("ViewPrices", "HTTPException, unexpected response", )
                     return@launch
                 }
-                if(response.isSuccessful && response.body() != null){
+                if(response.isSuccessful){
                     Log.e("ViewPrices", "Coin BOUGHT!", )
                 }else{
                     Log.e("BuyCoin", "ISSUE! coin: $name, amt: $amount, price: $custom_price, response: $response", )
