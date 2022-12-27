@@ -10,7 +10,7 @@ Buying and selling coins requires an API Key, while getting live price data does
 
 Crypto Ledger is available on Google Play: https://play.google.com/store/apps/details?id=com.tmdstudios.cryptoledgerkotlin
 
-You can see the website here: http://crypto-ledger.herokuapp.com/
+You can see the website here: http://cryptoledger.pythonanywhere.com
 
 The website repository is available here: https://github.com/TMDStudios/crypto_ledger
 
@@ -29,7 +29,9 @@ You can also read more about the project on Publish0x: https://www.publish0x.com
 
 ## Related
 
-[Crypto Ledger Spring](https://github.com/TMDStudios/crypto_ledger_spring 'Crypto Ledger Spring') - Spring Boot version of Crypto Ledger
+[Crypto Ledger](https://github.com/TMDStudios/crypto_ledger 'Crypto Ledger') - Crypto Ledger
+
+[Crypto Ledger Spring](https://github.com/TMDStudios/crypto_ledger_spring 'Crypto Ledger Spring') - Spring version of Crypto Ledger
 
 
 ## You may also like...
@@ -37,3 +39,5 @@ You can also read more about the project on Publish0x: https://www.publish0x.com
 [Mock Trader](https://github.com/TMDStudios/MockTrader 'Mock Trader') - Open-source Bitcoin trading game
 
 [Py Learning Companion](https://play.google.com/store/apps/details?id=com.tmdstudios.python 'Py Learning Companion') - Python Study App
+
+[Game Room](https://github.com/TMDStudios/GameRoom 'Game Room') - A platform for educators to play games and/or review materials with their students

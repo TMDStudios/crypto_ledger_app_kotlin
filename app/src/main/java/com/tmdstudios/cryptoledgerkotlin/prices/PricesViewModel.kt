@@ -38,15 +38,15 @@ class PricesViewModel : ViewModel() {
             val response = try {
                 RetrofitInstance.api.getPrices()
             }catch (e: IOException){
-                Log.e("ViewPrices", "IOException, you might not be connected to the internet", )
+                Log.e("ViewPrices", "IOException, you might not be connected to the internet")
                 return@launch
             }catch (e: HttpException){
-                Log.e("ViewPrices", "HTTPException, unexpected response", )
+                Log.e("ViewPrices", "HTTPException, unexpected response")
                 return@launch
             }
             if(response.isSuccessful && response.body() != null){
-                Log.e("ViewPrices", "Got the data! ${response.message()}", )
-                Log.e("ViewPrices", "******** ${response.body()}", )
+                Log.e("ViewPrices", "Got the data! ${response.message()}")
+                Log.e("ViewPrices", "******** ${response.body()}")
                 if(sortMethod=="Asc"){
                     priceData.postValue(response.body()!!.sortedBy { coin -> coin.name })
                 }else if(sortMethod=="Desc"){
@@ -59,7 +59,7 @@ class PricesViewModel : ViewModel() {
                 }
 
             }else{
-                Log.e("ViewPrices", "Unable to get prices", )
+                Log.e("ViewPrices", "Unable to get prices")
             }
             delay(500L)
             showProgressBar.postValue(false)
@@ -83,10 +83,9 @@ class PricesViewModel : ViewModel() {
                 }else{
                     Log.e("BuyCoin", "ISSUE! coin: $name, amt: $amount, price: $custom_price, response: $response", )
                 }
-
             }
         }else{
-            Log.e("ViewPrices", "Invalid API Key", )
+            Log.e("ViewPrices", "Invalid API Key")
         }
     }
 }

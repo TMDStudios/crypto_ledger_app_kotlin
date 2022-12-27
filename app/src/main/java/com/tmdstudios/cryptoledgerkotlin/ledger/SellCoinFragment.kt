@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tmdstudios.cryptoledgerkotlin.R
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
+import java.lang.Exception
 
 class SellCoinFragment : Fragment() {
 
@@ -58,13 +58,25 @@ class SellCoinFragment : Fragment() {
 
         view.tvSellCoinName.text = args.currentLedgerCoin.name
         var decimalPointIndex = args.currentLedgerCoin.current_price.indexOf(".") + 3
-        val currentPrice = "$ " + args.currentLedgerCoin.current_price.substring(0, decimalPointIndex)
+        val currentPrice = try{
+            "$ " + args.currentLedgerCoin.current_price.substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin.current_price
+        }
         view.tvSellCoinPrice.text = currentPrice
         decimalPointIndex = args.currentLedgerCoin._purchase_price.indexOf(".") + 3
-        val purchasePrice = "$ " + args.currentLedgerCoin._purchase_price.substring(0, decimalPointIndex)
+        val purchasePrice = try{
+            "$ " + args.currentLedgerCoin._purchase_price.substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin._purchase_price
+        }
         view.tvSellCoinPurchasePrice.text = purchasePrice
         decimalPointIndex = args.currentLedgerCoin.price_difference.toString().indexOf(".") + 3
-        val trend = args.currentLedgerCoin.price_difference.toString().substring(0, decimalPointIndex) + " %"
+        val trend = try{
+            args.currentLedgerCoin.price_difference.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: Exception){
+            args.currentLedgerCoin.price_difference.toString() + " %"
+        }
         view.tvSellCoinTrend.text = trend
         when{
             args.currentLedgerCoin.price_difference > 0.009 -> view.tvSellCoinTrend.setTextColor(Color.argb(255, 34, 139, 34))
@@ -72,10 +84,18 @@ class SellCoinFragment : Fragment() {
             else -> view.tvSellCoinTrend.text = "0.00 %"
         }
         decimalPointIndex = args.currentLedgerCoin.total_amount.indexOf(".") + 9
-        val amtOwned = args.currentLedgerCoin.total_amount.substring(0, decimalPointIndex)
+        val amtOwned = try{
+            args.currentLedgerCoin.total_amount.substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            args.currentLedgerCoin.total_amount
+        }
         view.tvSellCoinAmountOwned.text = amtOwned
         decimalPointIndex = args.currentLedgerCoin.total_profit.indexOf(".") + 3
-        val totalProfit = "$ " + args.currentLedgerCoin.total_profit.substring(0, decimalPointIndex)
+        val totalProfit = try{
+            "$ " + args.currentLedgerCoin.total_profit.substring(0, decimalPointIndex)
+        }catch(e: Exception){
+            "$ " + args.currentLedgerCoin.total_profit
+        }
         view.tvSellCoinTotalProfit.text = totalProfit
         when{
             args.currentLedgerCoin.total_profit.toFloat() > 0.009 -> view.tvSellCoinTotalProfit.setTextColor(Color.argb(255, 34, 139, 34))
@@ -85,11 +105,11 @@ class SellCoinFragment : Fragment() {
 
         view.btSellCoinSubmit.setOnClickListener {
             val amount = if (view.etSellAmount.text.toString().isEmpty()){
-                0f
+                0.0
             } else{
-                view.etSellAmount.text.toString().toFloat()
+                view.etSellAmount.text.toString().toDouble()
             }
-            if(amount > 0f && amount <= owned){
+            if(amount > 0.0 && amount <= owned){
                 viewModel.sellCoin(coinID, amount)
             }else{
                 view.etSellAmount.setText("0")

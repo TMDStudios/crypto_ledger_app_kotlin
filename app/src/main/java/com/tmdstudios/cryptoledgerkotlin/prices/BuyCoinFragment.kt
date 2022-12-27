@@ -18,6 +18,7 @@ import com.tmdstudios.cryptoledgerkotlin.R
 import kotlinx.android.synthetic.main.coin.view.*
 import kotlinx.android.synthetic.main.fragment_buy_coin.view.*
 import kotlinx.android.synthetic.main.fragment_sell_coin.view.*
+import java.lang.Exception
 
 class BuyCoinFragment : Fragment() {
 

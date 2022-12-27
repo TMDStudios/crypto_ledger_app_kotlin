@@ -52,7 +52,13 @@ class CoinHistoryAdapter: RecyclerView.Adapter<CoinHistoryAdapter.CHViewHolder>(
             }else{
                 val amt = entry.total_amount
                 decimalPointIndex = entry.price_difference.toString().indexOf(".") + 5
-                val priceDiff = entry.price_difference.toString().substring(0, decimalPointIndex)
+                var priceDiff = "0"
+                try {
+                    priceDiff = entry.price_difference.toString().substring(0, decimalPointIndex)
+
+                }catch(e: StringIndexOutOfBoundsException){
+
+                }
                 tvStatusCH.text = "Total Amount: $amt"
                 tvProfitCH.text = "Trend: $priceDiff %"
                 if(priceDiff.startsWith("-")){
