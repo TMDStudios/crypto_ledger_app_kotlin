@@ -111,7 +111,7 @@ class PricesFragment : Fragment() {
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
-        webView.loadUrl("https://cls-prod-cls-z2mvyu.mo1.mogenius.io/api/docs/")
+        webView.loadUrl("https://cryptoledger.pythonanywhere.com/api/docs/")
 
         return view
     }

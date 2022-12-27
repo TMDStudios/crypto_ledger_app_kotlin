@@ -40,7 +40,7 @@ class HomeViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val msg: String = async {
                 try {
-                    RetrofitInstance.api.getLedger(apiKey).code().toString()
+                    RetrofitInstance.api.getLedger(apiKey).message()
                 } catch (e: IOException){
                     e.toString()
                 } catch (e: HttpException) {
@@ -51,8 +51,7 @@ class HomeViewModel : ViewModel() {
             }.await()
             withContext(Dispatchers.Main){
                 apiChecked = true
-                println("MSG: $msg")
-                if(msg=="200"){
+                if(msg=="OK"){
                     validAPI.postValue(true)
                     showApiKey = false
                     with(sharedPreferences.edit()) {
@@ -95,7 +94,7 @@ class HomeViewModel : ViewModel() {
                     val decimalPoint = i.price.indexOf(".")
                     var coin = " ${i.symbol} "
                     var price = "\$${i.price.substring(0, decimalPoint + 3)} "
-                    if(i.priceChangePercentage1d < 0){
+                    if(i.price_1h < 0){
                         coin = colorFilter(coin, price, "#FF0000")
                     }else{
                         coin = colorFilter(coin, price, "#7fff00")

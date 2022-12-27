@@ -102,7 +102,7 @@ class HomeFragment : Fragment() {
 
         getAPIKeyButton = view.btGetAPIKey
         getAPIKeyButton.setOnClickListener {
-            val url = "https://cls-prod-cls-z2mvyu.mo1.mogenius.io"
+            val url = "https://cryptoledger.pythonanywhere.com"
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
-        webView.loadUrl("https://cls-prod-cls-z2mvyu.mo1.mogenius.io/api/docs/")
+        webView.loadUrl("https://cryptoledger.pythonanywhere.com/api/docs/")
 
         return view
     }

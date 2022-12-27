@@ -46,63 +46,39 @@ class BuyCoinFragment : Fragment() {
         }
 
         val coinName = args.currentCoin.name + " (" + args.currentCoin.symbol + ")"
-        val coinSymbol = args.currentCoin.symbol
         view.tvBuyCoinName.text = coinName
         var decimalPointIndex = args.currentCoin.price.indexOf(".") + 5
-        val price = try{
-            "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
-        }catch(e: Exception){
-            "$ " + args.currentCoin.price
-        }
+        val price = "$ " + args.currentCoin.price.substring(0, decimalPointIndex)
         view.tvBuyCoinPrice.text = price
-        decimalPointIndex = args.currentCoin.priceChangePercentage1d.toString().indexOf(".") + 5
-        var priceChange = args.currentCoin.priceChangePercentage1d*100
-        val price1d = try{
-            priceChange.toString().substring(0, decimalPointIndex) + " %"
-        }catch(e: Exception){
-            "$priceChange %"
+        decimalPointIndex = args.currentCoin.price_1h.toString().indexOf(".") + 5
+        val price1h = try{
+            args.currentCoin.price_1h.toString().substring(0, decimalPointIndex) + " %"
+        }catch(e: StringIndexOutOfBoundsException){
+            "0 %"
         }
-        view.tvBuyCoinPrice1d.text = price1d
+        view.tvBuyCoinPrice1h.text = price1h
         when {
-            args.currentCoin.priceChangePercentage1d<0 -> {view.tvBuyCoinPrice1d.setTextColor(Color.RED)}
-            args.currentCoin.priceChangePercentage1d>0 -> {view.tvBuyCoinPrice1d.setTextColor(Color.argb(255, 34, 139, 34))}
-            else -> {view.tvBuyCoinPrice1d.setTextColor(Color.argb(255, 48, 48, 48))}
+            args.currentCoin.price_1h<0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.RED)}
+            args.currentCoin.price_1h>0 -> {view.tvBuyCoinPrice1h.setTextColor(Color.argb(255, 34, 139, 34))}
+            else -> {view.tvBuyCoinPrice1h.setTextColor(Color.argb(255, 48, 48, 48))}
         }
-        decimalPointIndex = args.currentCoin.priceChangePercentage7d.toString().indexOf(".") + 5
-        priceChange = args.currentCoin.priceChangePercentage7d*100
-        val price7d = try{
-            priceChange.toString().substring(0, decimalPointIndex) + " %"
-        }catch(e: Exception){
-            priceChange.toString() + " %"
-        }
-        view.tvBuyCoinPrice7d.text = price7d
+        decimalPointIndex = args.currentCoin.price_24h.toString().indexOf(".") + 5
+        val price24h = args.currentCoin.price_24h.toString().substring(0, decimalPointIndex) + " %"
+        view.tvBuyCoinPrice24h.text = price24h
         when {
-            args.currentCoin.priceChangePercentage7d<0 -> {view.tvBuyCoinPrice7d.setTextColor(Color.RED)}
-            args.currentCoin.priceChangePercentage7d>0 -> {view.tvBuyCoinPrice7d.setTextColor(Color.argb(255, 34, 139, 34))}
-            else -> {view.tvBuyCoinPrice7d.setTextColor(Color.argb(255, 48, 48, 48))}
+            args.currentCoin.price_24h<0 -> {view.tvBuyCoinPrice24h.setTextColor(Color.RED)}
+            args.currentCoin.price_24h>0 -> {view.tvBuyCoinPrice24h.setTextColor(Color.argb(255, 34, 139, 34))}
+            else -> {view.tvBuyCoinPrice24h.setTextColor(Color.argb(255, 48, 48, 48))}
         }
-        decimalPointIndex = args.currentCoin.priceChangePercentage30d.toString().indexOf(".") + 5
-        priceChange = args.currentCoin.priceChangePercentage30d*100
-        val price30d = try{
-            priceChange.toString().substring(0, decimalPointIndex) + " %"
-        }catch(e: Exception){
-            priceChange.toString() + " %"
-        }
-        view.tvBuyCoinPrice30d.text = price30d
-        when {
-            args.currentCoin.priceChangePercentage30d<0 -> {view.tvBuyCoinPrice30d.setTextColor(Color.RED)}
-            args.currentCoin.priceChangePercentage30d>0 -> {view.tvBuyCoinPrice30d.setTextColor(Color.argb(255, 34, 139, 34))}
-            else -> {view.tvBuyCoinPrice30d.setTextColor(Color.argb(255, 48, 48, 48))}
-        }
-//        view.tvBuyCoinPriceBTC.text = args.currentCoin.price_btc
-//        view.tvBuyCoinPriceETH.text = args.currentCoin.price_eth
+        view.tvBuyCoinPriceBTC.text = args.currentCoin.price_btc
+        view.tvBuyCoinPriceETH.text = args.currentCoin.price_eth
 
         view.btBuyCoinSubmit.setOnClickListener {
             if(view.etBuyCustomPrice.text.toString().isNotEmpty()){
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
-                    val amt = view.etBuyAmount.text.toString().toDouble()
+                    val amt = view.etBuyAmount.text.toString().toFloat()
                     val customPrice = view.etBuyCustomPrice.text.toString()
-                    viewModel.buyCoin(coinName, coinSymbol, amt, customPrice.toDouble())
+                    viewModel.buyCoin(coinName, amt, customPrice)
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
                     imm?.hideSoftInputFromWindow(view.windowToken, 0)
@@ -115,8 +91,8 @@ class BuyCoinFragment : Fragment() {
                 }
             }else{
                 if(view.etBuyAmount.text.toString().isNotEmpty()){
-                    val amt = view.etBuyAmount.text.toString().toDouble()
-                    viewModel.buyCoin(coinName, coinSymbol, amt, 0.0)
+                    val amt = view.etBuyAmount.text.toString().toFloat()
+                    viewModel.buyCoin(coinName, amt, "0")
                     // Hide Keyboard
                     val imm = ContextCompat.getSystemService(view.context, InputMethodManager::class.java)
                     imm?.hideSoftInputFromWindow(view.windowToken, 0)

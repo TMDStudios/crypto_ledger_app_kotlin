@@ -7,7 +7,7 @@ object RetrofitInstance {
 
     val api: API by lazy {
         Retrofit.Builder()
-            .baseUrl("https://cls-prod-cls-z2mvyu.mo1.mogenius.io")
+            .baseUrl("https://cryptoledger.pythonanywhere.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(API::class.java)

@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledgerkotlin.adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,39 +32,39 @@ class LedgerCoinAdapter: RecyclerView.Adapter<LedgerCoinAdapter.LedgerCoinViewHo
         val ledgerCoin = ledgerCoins[position]
         holder.itemView.apply {
             tvLedgerCoinName.text = ledgerCoin.name
-            val totalAmount = "Total Amount: " + ledgerCoin.totalAmount.toString()
+            val totalAmount = "Total Amount: " + ledgerCoin.total_amount.toString()
             tvLedgerCoinAmount.text = totalAmount
-            var decimalPointIndex = ledgerCoin.purchasePrice.toString().indexOf(".") + 3
+            var decimalPointIndex = ledgerCoin._purchase_price.indexOf(".") + 3
             val purchasePrice = try{
-                "$" + ledgerCoin.purchasePrice.toString().substring(0, decimalPointIndex)
+                "$" + ledgerCoin._purchase_price.substring(0, decimalPointIndex)
             }catch(e: Exception){
-                "$" + ledgerCoin.purchasePrice.toString()
+                "$" + ledgerCoin._purchase_price
             }
             tvLedgerCoinPurchasePrice.text = purchasePrice
-            decimalPointIndex = ledgerCoin.currentPrice.toString().indexOf(".") + 3
+            decimalPointIndex = ledgerCoin.current_price.indexOf(".") + 3
             val currentPrice = try{
-                "$" + ledgerCoin.currentPrice.toString().substring(0, decimalPointIndex)
+                "$" + ledgerCoin.current_price.substring(0, decimalPointIndex)
             }catch(e: Exception){
-                "$" + ledgerCoin.currentPrice.toString()
+                "$" + ledgerCoin.current_price
             }
             tvLedgerCoinPrice.text = currentPrice
-            decimalPointIndex = ledgerCoin.totalProfit.toString().indexOf(".") + 3
+            decimalPointIndex = ledgerCoin.total_profit.indexOf(".") + 3
             val profit = try{
-                "$" + ledgerCoin.totalProfit.toString().substring(0, decimalPointIndex)
+                "$" + ledgerCoin.total_profit.substring(0, decimalPointIndex)
             }catch(e: Exception){
-                "$" + ledgerCoin.totalProfit.toString()
+                "$" + ledgerCoin.total_profit
             }
             when{
-                ledgerCoin.totalProfit.toFloat() > 0.009 -> tvLedgerProfit.setTextColor(Color.argb(255, 34, 139, 34))
-                ledgerCoin.totalProfit.toFloat() < -0.009 -> tvLedgerProfit.setTextColor(Color.RED)
+                ledgerCoin.total_profit.toFloat() > 0.009 -> tvLedgerProfit.setTextColor(Color.argb(255, 34, 139, 34))
+                ledgerCoin.total_profit.toFloat() < -0.009 -> tvLedgerProfit.setTextColor(Color.RED)
                 else -> tvLedgerProfit.setTextColor(Color.BLACK)
             }
             tvLedgerProfit.text = profit
-            decimalPointIndex = ledgerCoin.totalValue.toString().indexOf(".") + 3
+            decimalPointIndex = ledgerCoin.total_value.indexOf(".") + 3
             val totalValue = try{
-                "Total Value: $" + ledgerCoin.totalValue.toString().substring(0, decimalPointIndex)
+                "Total Value: $" + ledgerCoin.total_value.substring(0, decimalPointIndex)
             }catch(e: Exception){
-                "Total Value: $" + ledgerCoin.totalValue.toString()
+                "Total Value: $" + ledgerCoin.total_value
             }
             tvLedgerCoinValue.text = totalValue
             cvLedgerCoin.setOnClickListener {

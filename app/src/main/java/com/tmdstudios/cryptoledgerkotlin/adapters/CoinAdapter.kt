@@ -36,23 +36,24 @@ class CoinAdapter(private val fManager: FragmentManager): RecyclerView.Adapter<C
             var decimalPointIndex = coin.price.indexOf(".") + 5
             val price = "$" + coin.price.substring(0, decimalPointIndex)
             tvCoinPrice.text = price
-            decimalPointIndex = coin.priceChangePercentage1d.toString().indexOf(".") + 2
-            val price1d = "1d: " + coin.priceChangePercentage1d.toString().substring(0, decimalPointIndex) + "%"
-            tvPrice1d.text = price1d
+            decimalPointIndex = coin.price_1h.toString().indexOf(".") + 2
+            val price1h = "1h: " + coin.price_1h.toString().substring(0, decimalPointIndex) + "%"
+            tvPrice1h.text = price1h
             when {
-                coin.priceChangePercentage1d<0 -> {tvPrice1d.setTextColor(Color.RED)}
-                coin.priceChangePercentage1d>0 -> {tvPrice1d.setTextColor(Color.argb(255, 34, 139, 34))}
-                else -> {tvPrice1d.setTextColor(Color.argb(255, 48, 48, 48))}
+                coin.price_1h<0 -> {tvPrice1h.setTextColor(Color.RED)}
+                coin.price_1h>0 -> {tvPrice1h.setTextColor(Color.argb(255, 34, 139, 34))}
+                else -> {tvPrice1h.setTextColor(Color.argb(255, 48, 48, 48))}
             }
-            decimalPointIndex = coin.priceChangePercentage7d.toString().indexOf(".") + 2
-            val price7d = "7d: " + coin.priceChangePercentage7d.toString().substring(0, decimalPointIndex) + "%"
-            tvPrice7d.text = price7d
+            decimalPointIndex = coin.price_24h.toString().indexOf(".") + 2
+            val price24h = "24h: " + coin.price_24h.toString().substring(0, decimalPointIndex) + "%"
+            tvPrice24h.text = price24h
             when {
-                coin.priceChangePercentage7d<0 -> {tvPrice7d.setTextColor(Color.RED)}
-                coin.priceChangePercentage7d>0 -> {tvPrice7d.setTextColor(Color.argb(255, 34, 139, 34))}
-                else -> {tvPrice7d.setTextColor(Color.argb(255, 48, 48, 48))}
+                coin.price_24h<0 -> {tvPrice24h.setTextColor(Color.RED)}
+                coin.price_24h>0 -> {tvPrice24h.setTextColor(Color.argb(255, 34, 139, 34))}
+                else -> {tvPrice24h.setTextColor(Color.argb(255, 48, 48, 48))}
             }
-
+            tvPriceBTC.text = coin.price_btc
+            tvPriceETH.text = coin.price_eth
             cvCoin.setOnClickListener {
                 val action = PricesFragmentDirections.actionPricesFragmentToBuyCoinFragment(coin)
                 findNavController().navigate(action)

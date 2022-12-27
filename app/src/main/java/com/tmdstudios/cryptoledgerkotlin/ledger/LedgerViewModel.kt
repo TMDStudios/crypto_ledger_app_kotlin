@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import com.tmdstudios.cryptoledgerkotlin.R
 import com.tmdstudios.cryptoledgerkotlin.api.RetrofitInstance
 import com.tmdstudios.cryptoledgerkotlin.models.LedgerCoin
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import retrofit2.HttpException
@@ -98,16 +98,21 @@ class LedgerViewModel : ViewModel() {
             val mediaType: MediaType? = "application/x-www-form-urlencoded".toMediaTypeOrNull()
             val body: RequestBody = RequestBody.create(
                 mediaType,
-                "id=$coinID&amount=$amt"
+                "coin_id=$coinID&amount=$amt"
             )
             val request: Request = Request.Builder()
-                .url("https://cls-prod-cls-z2mvyu.mo1.mogenius.io/api/sell/$apiKey")
+                .url("https://cryptoledger.pythonanywhere.com/api/sell-coin-api/$apiKey")
                 .method("POST", body)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addHeader("Cookie", "JSESSIONID=376B885635F4795460A6BD770D4C02D4")
                 .build()
             val response: Response = client.newCall(request).execute()
             Log.e("ViewPrices", "Response: $response")
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    coinSold.value = true
+                }
+            }
         }
     }
 }
